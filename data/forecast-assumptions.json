@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "fiscalYearStart": "2025/26",
+  "forecastYears": ["2025/26", "2026/27", "2027/28", "2028/29", "2029/30"],
+  "source": "FY 2025/26 Council Budget Summary; General Governmental and Enterprise Funds Forecasts",
+  "confidence": "adopted",
+  "structuralGap": {
+    "description": "Ongoing revenues below ongoing expenditures; gap widens without action.",
+    "drivers": [
+      "State flat income tax reducing Urban Revenue Sharing (-6.4% FY25/26)",
+      "Residential rental TPT preemption (~$25M annual impact)",
+      "Personnel wage growth and PSPRS pension costs",
+      "Healthcare claims inflation (EBT ~4.9% FY25/26)"
+    ]
+  },
+  "generalFund": {
+    "reserveTargetPctMin": 8,
+    "reserveTargetPctMax": 10,
+    "localSalesTax": {
+      "adoptedRatePct": 2.0,
+      "fy26GrowthPct": -4.5,
+      "fy27GrowthPct": 2.0,
+      "fy28GrowthPct": 2.5,
+      "fy29GrowthPct": 2.5,
+      "fy30GrowthPct": 2.5,
+      "rentalTptLossAnnual": 25000000,
+      "source": "FY 2025/26 Council Budget Summary"
+    },
+    "stateShared": {
+      "ursGrowthPct": -6.4,
+      "stateSalesTaxGrowthPct": 1.5,
+      "vltGrowthPct": 3.3,
+      "source": "FY 2025/26 Council Budget Summary"
+    },
+    "utilityContribution": {
+      "adoptedAmount": 147000000,
+      "capPct": 30,
+      "publicSafetyPct": 25,
+      "generalServicesPct": 5,
+      "fy26GrowthPct": 5.3,
+      "source": "Council utility contribution resolution"
+    },
+    "transitGfTransfer": {
+      "adoptedAmount": 26900000,
+      "fy26GrowthPct": 23.4,
+      "source": "FY 2025/26 Council Budget Summary"
+    },
+    "expenditureGrowthPct": {
+      "ongoing": 3.0,
+      "personnel": 3.5,
+      "psprs": 5.8
+    }
+  },
+  "enterprise": {
+    "utilityOperatingRevenue": {
+      "fy26": 492100000,
+      "fy25Projected": 468400000,
+      "growthPct": 5.1,
+      "source": "FY 2025/26 Council Budget Summary - Utility Operating Budget"
+    },
+    "rateIncreaseCapPct": 8,
+    "expenseInflationPct": 4.0
+  },
+  "restricted": {
+    "hurfGrowthPct": 1.0,
+    "lsstGrowthPct": -4.6,
+    "hurfLsstReserveEndFy26": 86400000,
+    "source": "FY 2025/26 Council Budget Summary - Transportation Related Funds"
+  },
+  "trustFunds": {
+    "ebtCityContribution": {
+      "fy26": 100500000,
+      "claimsGrowthPct": 4.9,
+      "premiumIncreaseEmployeePct": 6,
+      "premiumIncreaseRetireePct": 8
+    },
+    "wcContribution": { "fy26": 5800000 },
+    "pplContribution": { "fy26": 11000000, "claimsBudget": 5000000 },
+    "psprsTotalContribution": { "fy26": 102800000, "fy25": 97100000 }
+  },
+  "secondaryPropertyTax": {
+    "levy": 44300000,
+    "ratePer100": 0.8582,
+    "medianTaxableValue": 186444,
+    "medianAnnualCost": 160,
+    "source": "FY 2025/26 Council Budget Summary"
+  },
+  "growth": {
+    "note": "Year-over-year % growth applied to each line for FY26/27 onward. One-time 'Use of Fund Balance / Reserves' and 'Contribution to Reserves & Capital' plug lines are held flat so each fund starts balanced and reserves move only with the divergence between recurring revenue and expenditure growth (Mesa's structural-balance method). Sources: FY2025/26 Council Budget Summary, Mesa Financial Policies, City Manager FY26/27 forecast remarks.",
+    "revenueByLine": {
+      "local-sales-tax": [0, 2.0, 2.5, 2.5, 2.5],
+      "state-shared": 1.0,
+      "other-gf-revenue": 2.0,
+      "hurf-revenue": 1.0,
+      "lsst-revenue": 1.5,
+      "transit-restricted-rev": 1.5,
+      "ps-tax-rev": 2.5,
+      "qol-rev": 2.5,
+      "ecf-rev": 0,
+      "ambulance-rev": 2.0,
+      "ebt-premiums": 6.0,
+      "ebt-city-contrib": 4.9,
+      "grants-rev": 0,
+      "other-rev": 2.0
+    },
+    "utilityConsumptionPct": 2.5,
+    "expenditureByFundType": {
+      "discretionary": 3.5,
+      "restricted": 2.5,
+      "enterprise": 4.0,
+      "trust": 4.9,
+      "grant": 0,
+      "debt": 3.0
+    },
+    "defaultRevenuePct": 2.0,
+    "reserveFallbackPctOfExpenditure": 10,
+    "reserveTargetPctMin": 8,
+    "reserveTargetPctMax": 10
+  }
+}

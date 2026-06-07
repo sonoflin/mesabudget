@@ -1,0 +1,24 @@
+/* City of Mesa brand tokens — PMS 1805 / 145 / 660 / Black 3 */
+@theme {
+  --color-mesa-red: #aa272f;
+  --color-mesa-red-dark: #8a1f26;
+  --color-mesa-amber: #e5821e;
+  --color-mesa-amber-light: #f0a04a;
+  --color-mesa-blue: #2a6ebb;
+  --color-mesa-blue-dark: #1f5494;
+  --color-mesa-ink: #252c26;
+  --color-mesa-slate: #3d4f5f;
+  --color-mesa-muted: #6b7280;
+  --color-mesa-sand: #f7f5f0;
+  --color-mesa-sand-deep: #efece3;
+  --color-mesa-surface: #ffffff;
+  --color-mesa-gray: #8d9296;
+  --color-mesa-success: #2a6ebb;
+  --color-mesa-warning: #e5821e;
+  --color-mesa-danger: #aa272f;
+  --font-sans: "Mulish Variable", Arial, system-ui, -apple-system, sans-serif;
+  --radius-mesa: 0.75rem;
+  --shadow-mesa-sm: 0 1px 2px rgb(37 44 38 / 0.04), 0 2px 8px -2px rgb(37 44 38 / 0.06);
+  --shadow-mesa: 0 4px 24px -6px rgb(37 44 38 / 0.10);
+  --shadow-mesa-lg: 0 18px 48px -12px rgb(37 44 38 / 0.16);
+}

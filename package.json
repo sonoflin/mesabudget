@@ -1,17 +1,45 @@
 {
-  "name": "eminent-ellipse",
+  "name": "mesa-budget-simulator",
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "engines": {
-    "node": ">=22.12.0"
+    "node": ">=20.17.0"
   },
   "scripts": {
     "dev": "astro dev",
+    "dev:worker": "wrangler dev worker/index.ts --port 8787 --local",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:worker\"",
     "build": "astro build",
+    "build:data": "tsx scripts/build-budget-data.ts",
+    "validate:data": "tsx scripts/validate-budget.ts",
     "preview": "astro preview",
-    "astro": "astro"
+    "deploy": "npm run build && wrangler pages deploy dist",
+    "db:migrate": "wrangler d1 execute mesa-budget-db --local --file=worker/schema.sql",
+    "db:migrate:remote": "wrangler d1 execute mesa-budget-db --remote --file=worker/schema.sql"
   },
   "dependencies": {
-    "astro": "^6.4.4"
+    "@astrojs/react": "^5.0.7",
+    "@fontsource-variable/mulish": "^5.2.8",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/react": "^19.2.16",
+    "@types/react-dom": "^19.2.3",
+    "astro": "^6.4.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.542.0",
+    "nanoid": "^5.1.5",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "recharts": "^3.1.2",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss": "^4.3.0",
+    "zustand": "^5.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "concurrently": "^9.2.1",
+    "tsx": "^4.20.5",
+    "wrangler": "^4.97.0"
   }
 }

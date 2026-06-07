@@ -1,0 +1,425 @@
+{
+  "version": "1.0.0",
+  "disclaimer": "Service impacts are educational estimates based on adopted budget documents. Actual service changes require City Council action.",
+  "categories": {
+    "library": {
+      "unitLabel": "library branch week of staffed hours",
+      "unitCost": 280000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Minimal", "description": "Severe cuts to hours and programming; self-service only at most locations." },
+        { "level": 2, "label": "Reduced", "description": "Reduced programming, fewer digital subscriptions, limited community events." },
+        { "level": 3, "label": "Adopted", "description": "Current adopted service: five locations including Gateway Library; standard hours Mon–Sat." },
+        { "level": 4, "label": "Enhanced", "description": "Extended hours, expanded literacy and workforce programs, more staffing." },
+        { "level": 5, "label": "Expanded", "description": "Maximum programming, additional outreach, enhanced makerspace (THINKspot) access." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -25, "headlines": ["Risk of branch hour consolidation", "Major programming cuts"], "details": ["A 25%+ reduction would force difficult choices across five library locations.", "Real FY 2025/26 cuts eliminated page positions and Press Reader — deeper cuts affect staffed hours.", "Branch closure is a multi-year Council decision, not an automatic slider result."] },
+        { "deltaPctMin": -24, "deltaPctMax": -15, "headlines": ["Reduced hours at branches"], "details": ["Fewer story times, workforce programs, and community events.", "Similar to incremental reductions Mesa made in past budget cycles."] },
+        { "deltaPctMin": -14, "deltaPctMax": -5, "headlines": ["Minor service reductions"], "details": ["Matches real FY 2025/26 cuts: 1.0 FTE pages, security, VR programming.", "Minimal public impact per OMB."] },
+        { "deltaPctMin": -4, "deltaPctMax": 4, "headlines": ["Maintains adopted service level"], "details": ["Gateway Library continues as first full-service library since 1995."] },
+        { "deltaPctMin": 5, "deltaPctMax": 100, "headlines": ["Enhanced library services"], "details": ["More literacy outreach, extended hours, additional digital resources."] }
+      ],
+      "realWorldExample": "FY 2025/26: eliminated 1.0 FTE page positions, Press Reader, and VR programming with minimal impact."
+    },
+    "police": {
+      "unitLabel": "sworn officer (fully loaded)",
+      "unitCost": 185000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Reduced force", "description": "Fewer patrol officers; longer response times in some districts." },
+        { "level": 2, "label": "Below adopted", "description": "Reduced overtime, fewer specialty units, slower hiring." },
+        { "level": 3, "label": "Adopted", "description": "Current budget including RTCC 24/7 expansion and 911 staffing additions." },
+        { "level": 4, "label": "Enhanced", "description": "Additional sworn officers toward Quality of Life cap (120 FTE)." },
+        { "level": 5, "label": "Maximum", "description": "Near Quality of Life sworn cap; requires corresponding funding source." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Significant public safety impact"], "details": ["Real FY 2025/26 plan: $5M ongoing reduction over 3 years from overtime and incentives.", "Eliminated 4 telecommunicator positions and Downtown Engagement Team positions.", "Each ~$185K fully loaded sworn officer includes PSPRS pension (~52–59% employer rate).", "Radios, vehicles, and body-worn cameras come from separate fleet and lifecycle budgets."] },
+        { "deltaPctMin": -9, "deltaPctMax": -3, "headlines": ["Moderate reductions"], "details": ["Reduced overtime and delayed specialty program expansion."] },
+        { "deltaPctMin": -2, "deltaPctMax": 2, "headlines": ["Adopted service level"], "details": ["RTCC operating 24/7 with added sergeant oversight.", "853 sworn officers serve Mesa (~16–18 per 10,000 residents)."] },
+        { "deltaPctMin": 3, "deltaPctMax": 100, "headlines": ["Additional officers possible"], "details": ["Quality of Life fund supports up to 120 sworn FTE.", "New officers need 6–12 months academy plus field training.", "Equipment: patrol vehicle ~$60K+ amortized, radio, vest, body camera from fleet/tech budgets."] }
+      ],
+      "realWorldExample": "Quality of Life Sales Tax funds up to 120 sworn Police FTE per ballot language."
+    },
+    "fire-medical": {
+      "unitLabel": "sworn firefighter/paramedic (fully loaded)",
+      "unitCost": 165000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Critical", "description": "Station brownouts, longer emergency response times." },
+        { "level": 2, "label": "Reduced", "description": "Delayed academy classes, fewer ambulances." },
+        { "level": 3, "label": "Adopted", "description": "Stations 223 & 224 under construction; cancer screening program continues." },
+        { "level": 4, "label": "Enhanced", "description": "Faster response in growth areas; additional transport units." },
+        { "level": 5, "label": "Maximum", "description": "Toward Quality of Life cap of 65 sworn FTE from that fund." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -8, "headlines": ["Emergency response at risk"], "details": ["Real FY 2025/26: $3M ongoing reduction — 8 Medical Response Unit positions not funded.", "Vacant fire pre-recruit position removed.", "8 new fire stations added in 20 years; Stations 223 (Lehi) and 224 (Hawes Crossing) building now."] },
+        { "deltaPctMin": -7, "deltaPctMax": -2, "headlines": ["Delayed expansion"], "details": ["Slower medic academies; deferred apparatus replacement."] },
+        { "deltaPctMin": -1, "deltaPctMax": 1, "headlines": ["Adopted level"], "details": ["Cancer screening on 3-year schedule for sworn members.", "Northeast Public Safety Facility opening with Fire Station 222."] },
+        { "deltaPctMin": 2, "deltaPctMax": 100, "headlines": ["Enhanced emergency services"], "details": ["Additional ambulances for Transport Services.", "Quality of Life supports up to 65 sworn MFMD FTE."] }
+      ],
+      "realWorldExample": "Ambulance provider exit March 2025 led Mesa to expand citywide transport with 59 new positions."
+    },
+    "parks-recreation": {
+      "unitLabel": "major program area",
+      "unitCost": 500000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Minimal", "description": "Pool closures, reduced maintenance, fewer programs." },
+        { "level": 2, "label": "Reduced", "description": "Fewer recreation programs; deferred park maintenance." },
+        { "level": 3, "label": "Adopted", "description": "Current parks, pools, and recreation programming." },
+        { "level": 4, "label": "Enhanced", "description": "More aquatics and recreation staff; improved park amenities." },
+        { "level": 5, "label": "Expanded", "description": "Major program expansion (many capital projects are CIP/GO bond — see v2)." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -15, "headlines": ["Facility and program cuts"], "details": ["Real FY 2025/26: Fremont Pool closes after summer season.", "Mesa Pow Wow city funding eliminated.", "Vacant Parks Maintenance Worker position cut."] },
+        { "deltaPctMin": -14, "deltaPctMax": -5, "headlines": ["Reduced programming"], "details": ["Fewer camps, sports leagues, and community events."] },
+        { "deltaPctMin": -4, "deltaPctMax": 4, "headlines": ["Adopted service"], "details": ["22.1 new aquatics FTE for lifeguard coverage per audit recommendations.", "Eastmark Great Park Phase 5 in CIP (not adjustable here)."] },
+        { "deltaPctMin": 5, "deltaPctMax": 100, "headlines": ["More recreation access"], "details": ["Extended pool seasons, additional recreation coordinators."] }
+      ],
+      "realWorldExample": "FY 2025/26 added 22.1 aquatics FTE offset by fee revenue increases."
+    },
+    "streets-hurf-lsst": {
+      "unitLabel": "lane-mile maintenance cycle",
+      "unitCost": 45000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Deferred", "description": "Critical backlog growth; pothole response only." },
+        { "level": 2, "label": "Behind schedule", "description": "Maintenance falls behind LSST ballot expectations." },
+        { "level": 3, "label": "Adopted", "description": "Street program within available HURF+LSST resources." },
+        { "level": 4, "label": "Enhanced", "description": "Accelerated pavement preservation and bike/ped projects." },
+        { "level": 5, "label": "Maximum", "description": "Full program plus reserve drawdown for catch-up." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Street maintenance backlog grows"], "details": ["HURF diversions historically caused maintenance to fall behind LSST schedule.", "Combined HURF+LSST reserve ~$86M FY 2025/26 — not freely transferable to other services.", "Cannot fund libraries or police from these dollars."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Within adopted street program"], "details": ["Broadway, Val Vista, Ray/Ellsworth projects funded via GO bonds (CIP module v2)."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Improved street conditions"], "details": ["More pavement preservation, signals, and bike/ped infrastructure."] }
+      ],
+      "realWorldExample": "State HURF volatility and recession impacts delayed street maintenance vs. LSST voter expectations."
+    },
+    "transit-operations": {
+      "unitLabel": "annual service hour",
+      "unitCost": 120,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Minimal", "description": "Severe frequency cuts; paratransit wait times increase." },
+        { "level": 2, "label": "Reduced", "description": "Fewer routes and reduced peak service." },
+        { "level": 3, "label": "Adopted", "description": "Current Valley Metro and RPTA contracted service levels." },
+        { "level": 4, "label": "Enhanced", "description": "More frequency on key corridors." },
+        { "level": 5, "label": "Expanded", "description": "Major service expansion (requires sustained GF transfer)." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Transit service reductions"], "details": ["General Fund transfer to Transit Fund: $26.9M FY 2025/26 (up from $21.8M).", "Cuts affect fixed-route frequency and Ride Choice paratransit.", "LTAF and transit revenues restricted to transit use."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted transit service"], "details": ["Contract cost increases $2.9M from labor and maintenance."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["More transit access"], "details": ["Higher frequency requires increased GF subsidy or fare revenue."] }
+      ],
+      "realWorldExample": "Transit costs exceed fare + state revenue; General Fund covers the gap."
+    },
+    "utilities-water": {
+      "unitLabel": "utility reliability point",
+      "unitCost": 2000000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "At risk", "description": "Deferred maintenance on treatment plants and lines." },
+        { "level": 2, "label": "Reduced investment", "description": "Slower growth capacity for southeast Mesa." },
+        { "level": 3, "label": "Adopted", "description": "Current water/wastewater operations and joint venture participation." },
+        { "level": 4, "label": "Enhanced", "description": "Accelerated infrastructure for growth areas." },
+        { "level": 5, "label": "Maximum", "description": "Full capacity expansion (Greenfield WRP, Val Vista, 91st Ave plants)." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -8, "headlines": ["Water reliability concerns"], "details": ["Val Vista plant produces ~35% of Mesa water; 91st Ave wastewater share significant.", "Southeast Mesa growth demands new infrastructure.", "Rate revenue must cover enterprise costs — not general fund discretionary."] },
+        { "deltaPctMin": -7, "deltaPctMax": 5, "headlines": ["Adopted utility operations"], "details": ["Chemical and electric cost pressures in FY 2025/26."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Stronger utility infrastructure"], "details": ["Lead/Copper Rule compliance, SCIF interconnect planning investments."] }
+      ],
+      "realWorldExample": "Utility operating revenues ~$492M FY 2025/26; enterprise separate from General Fund."
+    },
+    "utilities-energy": {
+      "unitLabel": "million in utility transfer",
+      "unitCost": 1000000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Low transfer", "description": "Minimal contribution to General Government; lower rates possible." },
+        { "level": 2, "label": "Below cap", "description": "Reduced transfer below $147M adopted." },
+        { "level": 3, "label": "Adopted", "description": "$147M transfer (30% cap framework: 25% PS + 5% general)." },
+        { "level": 4, "label": "Higher transfer", "description": "Approaching 30% cap — supports police, fire, libraries." },
+        { "level": 5, "label": "At cap", "description": "Maximum legal transfer to General Government." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Lower utility contribution to city services"], "details": ["Police, fire, libraries receive significant funding via utility transfer.", "Council resolution caps total transfer at 30% of utility operating revenues.", "Lower transfer may require higher rates OR General Fund cuts elsewhere."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted utility contribution"], "details": ["$147M budgeted FY 2025/26, up 5.3% from prior year."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Higher transfer toward cap"], "details": ["Cannot exceed 30% without Council policy change.", "Trade-off: rates vs. general services funding."] }
+      ],
+      "realWorldExample": "Utility contribution is Mesa's method of funding police, fire, libraries, and parks from enterprise revenues."
+    },
+    "municipal-court": {
+      "unitLabel": "courtroom staffing week",
+      "unitCost": 150000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Backlogged", "description": "Long delays for hearings, arraignments, and warrant processing." },
+        { "level": 2, "label": "Reduced", "description": "Slower case flow; fewer diversion and compliance programs." },
+        { "level": 3, "label": "Adopted", "description": "Current court operations handling traffic, misdemeanor, and code cases." },
+        { "level": 4, "label": "Enhanced", "description": "Added diversion programs and faster case resolution." },
+        { "level": 5, "label": "Expanded", "description": "Specialty courts and expanded compliance services." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Case backlogs and delayed hearings"], "details": ["Municipal Court is constitutionally required — cases must still be heard.", "Deep cuts slow arraignments, warrant processing, and fine/restitution collection.", "Reduced staff can increase failure-to-appear rates and downstream costs."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted court service"], "details": ["Handles traffic, misdemeanor, and city code cases with current staffing."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Faster case processing"], "details": ["Expanded diversion and compliance programs; shorter wait times."] }
+      ],
+      "realWorldExample": "Municipal Court is a mandated function; staffing drives how quickly justice is delivered."
+    },
+    "arts-culture": {
+      "unitLabel": "exhibition or class series",
+      "unitCost": 120000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Minimal", "description": "Sharply reduced exhibitions, classes, and community events." },
+        { "level": 2, "label": "Reduced", "description": "Fewer performances and arts-education offerings." },
+        { "level": 3, "label": "Adopted", "description": "Mesa Arts Center performances, classes, and museum programming." },
+        { "level": 4, "label": "Enhanced", "description": "More performances, exhibitions, and outreach." },
+        { "level": 5, "label": "Expanded", "description": "Major festival and education expansion." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Fewer arts programs and events"], "details": ["Most arts funding flows through the Quality of Life Sales Tax — the General Fund share is small but supports operations and matching.", "Cuts reduce classes, exhibitions, and community events at Mesa Arts Center."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted arts & culture service"], "details": ["Mesa Arts Center is the largest arts campus in Arizona."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["More cultural programming"], "details": ["Expanded performances, exhibitions, and youth arts education."] }
+      ],
+      "realWorldExample": "Quality of Life Sales Tax is the primary funding source for Mesa arts and culture."
+    },
+    "community-services": {
+      "unitLabel": "service program",
+      "unitCost": 250000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Minimal", "description": "Sharp reductions to housing, human services, and outreach." },
+        { "level": 2, "label": "Reduced", "description": "Fewer housing-assistance and senior/family programs." },
+        { "level": 3, "label": "Adopted", "description": "Current housing, human services, and community outreach." },
+        { "level": 4, "label": "Enhanced", "description": "Expanded homelessness response and human services." },
+        { "level": 5, "label": "Expanded", "description": "Major program expansion across community needs." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Reduced housing and human services"], "details": ["Affects housing assistance, homelessness response, and senior/family programs.", "Many programs leverage federal grants — local cuts can reduce matching dollars."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted community services"], "details": ["Housing, human services, and neighborhood outreach at current levels."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Expanded community support"], "details": ["More housing navigation, homelessness response, and outreach capacity."] }
+      ],
+      "realWorldExample": "Community Services blends General Fund dollars with federal housing and human-services grants."
+    },
+    "development-services": {
+      "unitLabel": "plan reviewer/inspector",
+      "unitCost": 120000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Slow", "description": "Long permit and inspection backlogs stall construction." },
+        { "level": 2, "label": "Reduced", "description": "Slower plan review and inspections." },
+        { "level": 3, "label": "Adopted", "description": "Current permitting, plan review, and inspection service." },
+        { "level": 4, "label": "Enhanced", "description": "Faster turnaround and expanded online services." },
+        { "level": 5, "label": "Expanded", "description": "Same-week review for most projects." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Slower permits and inspections"], "details": ["Development Services is largely fee-supported — cutting it reduces review capacity and delays projects.", "Permit delays slow housing, business openings, and the tax base they create."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted permitting service"], "details": ["Plan review, permitting, and inspections at current turnaround times."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Faster development review"], "details": ["Quicker permits support housing and economic growth."] }
+      ],
+      "realWorldExample": "Development Services is mostly funded by the permit and review fees it charges."
+    },
+    "ambulance-transport": {
+      "unitLabel": "transport unit crew",
+      "unitCost": 165000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Critical", "description": "Longer ambulance response and transport times." },
+        { "level": 2, "label": "Reduced", "description": "Fewer transport units in service." },
+        { "level": 3, "label": "Adopted", "description": "Citywide EMS transport program (expanded 2025)." },
+        { "level": 4, "label": "Enhanced", "description": "Additional transport units and faster response." },
+        { "level": 5, "label": "Maximum", "description": "Full coverage with surge capacity." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Slower emergency medical transport"], "details": ["Transport fees recover most program cost — cutting it reduces crews and units.", "Mesa expanded citywide transport with 59 positions after a private provider exited in 2025."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted EMS transport"], "details": ["Self-sustaining transport program serving the whole city."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Faster medical transport"], "details": ["More ambulances and crews reduce response and transport times."] }
+      ],
+      "realWorldExample": "Mesa built citywide ambulance transport in 2025 after a private provider exited."
+    },
+    "utilities-solid-waste": {
+      "unitLabel": "collection route",
+      "unitCost": 500000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Reduced", "description": "Less frequent collection; recycling scaled back." },
+        { "level": 2, "label": "Below adopted", "description": "Service or diversion reductions." },
+        { "level": 3, "label": "Adopted", "description": "Weekly trash, recycling, and bulk/green-waste service." },
+        { "level": 4, "label": "Enhanced", "description": "Expanded diversion and recycling programs." },
+        { "level": 5, "label": "Maximum", "description": "Highest diversion and convenience service." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Reduced trash & recycling service"], "details": ["Solid waste is rate-funded — costs must be recovered from customers, not the General Fund.", "Deep cuts could reduce collection frequency or recycling/diversion programs."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted solid waste service"], "details": ["Weekly collection plus bulk and green-waste programs."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Enhanced waste diversion"], "details": ["More recycling and diversion reduces landfill use."] }
+      ],
+      "realWorldExample": "Solid Waste is an enterprise service funded entirely by customer rates."
+    },
+    "quality-of-life-tax": {
+      "unitLabel": "sworn public-safety FTE",
+      "unitCost": 175000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Reduced", "description": "Fewer sworn FTE funded toward the voter-approved caps." },
+        { "level": 2, "label": "Below adopted", "description": "Slower hiring toward the caps." },
+        { "level": 3, "label": "Adopted", "description": "Funds up to 120 sworn Police and 65 sworn Fire FTE." },
+        { "level": 4, "label": "Enhanced", "description": "Closer to the sworn FTE caps." },
+        { "level": 5, "label": "At cap", "description": "Maximum sworn FTE allowed under ballot language." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -10, "headlines": ["Fewer voter-funded officers/firefighters"], "details": ["These dollars are dedicated by voters for public safety and quality-of-life — they cannot be redirected to other services.", "The tax funds up to 120 sworn Police and 65 sworn Fire FTE plus arts/culture and parks."] },
+        { "deltaPctMin": -9, "deltaPctMax": 5, "headlines": ["Adopted Quality of Life service"], "details": ["Supports sworn public-safety FTE and quality-of-life programs."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["More public-safety capacity"], "details": ["Additional sworn FTE toward the voter-approved caps."] }
+      ],
+      "realWorldExample": "The Quality of Life Sales Tax funds up to 120 Police and 65 Fire sworn FTE by ballot language."
+    },
+    "human-resources": {
+      "unitLabel": "HR position",
+      "unitCost": 110000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Breakdown", "description": "Hiring stalls; benefits and workers' comp support lapse." },
+        { "level": 2, "label": "Strained", "description": "Slower recruiting and benefits administration." },
+        { "level": 3, "label": "Adopted", "description": "Personnel, Safety/Workers' Comp, and Benefits Administration." },
+        { "level": 4, "label": "Enhanced", "description": "Faster hiring and expanded safety/wellness programs." },
+        { "level": 5, "label": "Robust", "description": "Strong recruiting, retention, and safety capacity." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Hiring and benefits administration break down"], "details": ["HR runs recruiting, classification & pay, workers' comp safety, and employee/retiree benefits for thousands of staff.", "Zeroing or gutting HR halts hiring across every department and disrupts payroll and benefits — you can't run a city without it.", "Workers' comp and safety functions reduce costly injuries and liability."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted HR service"], "details": ["Three divisions: Personnel, Safety Services, and Employee Benefits Administration."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Stronger hiring and safety capacity"], "details": ["Faster recruiting and expanded workplace safety/wellness."] }
+      ],
+      "realWorldExample": "HR's three divisions keep every other department staffed, paid, and insured."
+    },
+    "it-innovation": {
+      "unitLabel": "IT system/position",
+      "unitCost": 130000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "At risk", "description": "Cybersecurity gaps and outages threaten core systems." },
+        { "level": 2, "label": "Reduced", "description": "Deferred upgrades; slower support." },
+        { "level": 3, "label": "Adopted", "description": "Networks, cybersecurity, applications, and data systems." },
+        { "level": 4, "label": "Enhanced", "description": "Modernization and stronger cybersecurity." },
+        { "level": 5, "label": "Leading", "description": "Resilient, modern technology across the city." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Cybersecurity and core systems at risk"], "details": ["Innovation & Technology runs the networks, security, and applications every department depends on — from 911 dispatch systems to utility billing.", "Deep cuts risk outages, security breaches, and failed systems citywide."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted technology service"], "details": ["Maintains networks, cybersecurity, and enterprise applications."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Modernized technology"], "details": ["Stronger cybersecurity and modernized systems."] }
+      ],
+      "realWorldExample": "IT underpins public safety dispatch, utility billing, permitting, and every digital service."
+    },
+    "financial-services": {
+      "unitLabel": "finance position",
+      "unitCost": 110000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "At risk", "description": "Payroll, purchasing, and audit controls strained." },
+        { "level": 2, "label": "Reduced", "description": "Slower procurement and billing." },
+        { "level": 3, "label": "Adopted", "description": "Accounting, payroll, purchasing, treasury, billing." },
+        { "level": 4, "label": "Enhanced", "description": "Faster procurement and stronger controls." },
+        { "level": 5, "label": "Robust", "description": "Strong financial stewardship and transparency." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Payroll, purchasing, and controls strained"], "details": ["Financial Services runs accounting, payroll, purchasing, treasury, and utility billing.", "Weakening it risks late payments, weaker internal controls, and audit findings that can raise borrowing costs."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted finance service"], "details": ["Core accounting, payroll, purchasing, and billing operations."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Stronger financial controls"], "details": ["Faster procurement and enhanced transparency."] }
+      ],
+      "realWorldExample": "Strong financial controls protect Mesa's credit rating and lower borrowing costs."
+    },
+    "city-attorney": {
+      "unitLabel": "attorney/legal staff",
+      "unitCost": 150000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "At risk", "description": "Legal review and prosecution capacity sharply reduced." },
+        { "level": 2, "label": "Reduced", "description": "Slower contract review; outside-counsel costs rise." },
+        { "level": 3, "label": "Adopted", "description": "Legal counsel, prosecution, and contract/risk review." },
+        { "level": 4, "label": "Enhanced", "description": "Faster legal review and reduced litigation risk." },
+        { "level": 5, "label": "Robust", "description": "Comprehensive legal support and risk management." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Legal review and prosecution slowed"], "details": ["The City Attorney provides counsel, prosecutes city cases, and reviews every contract.", "Cuts increase litigation risk and force costlier outside counsel."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted legal service"], "details": ["Counsel, prosecution, and contract review at current capacity."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Stronger legal support"], "details": ["Faster review and reduced litigation exposure."] }
+      ],
+      "realWorldExample": "Every city contract and prosecution runs through the City Attorney's office."
+    },
+    "engineering": {
+      "unitLabel": "project engineer",
+      "unitCost": 130000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Stalled", "description": "Capital projects delayed without design/management staff." },
+        { "level": 2, "label": "Reduced", "description": "Slower project delivery." },
+        { "level": 3, "label": "Adopted", "description": "Design, survey, and construction management." },
+        { "level": 4, "label": "Enhanced", "description": "Faster delivery of streets and utility projects." },
+        { "level": 5, "label": "Accelerated", "description": "Full capital delivery capacity." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Capital projects delayed"], "details": ["Engineering designs and manages street, utility, and facility projects — including voter-approved bond work.", "Without staff, projects stall even when construction dollars are available."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted engineering service"], "details": ["Design, survey, and construction management at current capacity."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Faster project delivery"], "details": ["Accelerated street and utility capital projects."] }
+      ],
+      "realWorldExample": "Engineering turns bond and CIP dollars into finished streets and utilities."
+    },
+    "facilities": {
+      "unitLabel": "facilities crew",
+      "unitCost": 100000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Deferred", "description": "Building maintenance backlog; HVAC and safety issues grow." },
+        { "level": 2, "label": "Reduced", "description": "Slower repairs and upkeep." },
+        { "level": 3, "label": "Adopted", "description": "Upkeep of city buildings and public facilities." },
+        { "level": 4, "label": "Enhanced", "description": "Proactive maintenance and energy upgrades." },
+        { "level": 5, "label": "Optimized", "description": "Modern, well-maintained facilities." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Deferred building maintenance"], "details": ["Facilities maintains city buildings, HVAC, and public spaces (libraries, courts, public-safety stations).", "Deferring maintenance accumulates costlier emergency repairs and safety risks."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted facilities service"], "details": ["Maintenance of city buildings and public facilities."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Proactive facility upkeep"], "details": ["Preventive maintenance and energy-efficiency upgrades."] }
+      ],
+      "realWorldExample": "Facilities keeps the buildings that house police, fire, courts, and libraries operating."
+    },
+    "economic-development": {
+      "unitLabel": "program",
+      "unitCost": 250000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Minimal", "description": "Little business attraction/retention activity." },
+        { "level": 2, "label": "Reduced", "description": "Fewer redevelopment and recruitment efforts." },
+        { "level": 3, "label": "Adopted", "description": "Business attraction/retention and redevelopment." },
+        { "level": 4, "label": "Enhanced", "description": "More aggressive recruitment and site readiness." },
+        { "level": 5, "label": "Expanded", "description": "Major employment and tax-base growth efforts." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Slower job and tax-base growth"], "details": ["Economic Development recruits and retains employers and supports redevelopment that grows the sales-tax base.", "Cutting it can slow the revenue growth that funds every other service."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted economic development"], "details": ["Business attraction, retention, and redevelopment at current capacity."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Stronger economic growth"], "details": ["More employer recruitment and site development."] }
+      ],
+      "realWorldExample": "A growing employment base expands the sales-tax revenue that funds city services."
+    },
+    "internal-services": {
+      "unitLabel": "support position",
+      "unitCost": 115000,
+      "baselineServiceLevel": 3,
+      "levels": [
+        { "level": 1, "label": "Breakdown", "description": "Core administrative functions fail or stall." },
+        { "level": 2, "label": "Strained", "description": "Slower internal support across departments." },
+        { "level": 3, "label": "Adopted", "description": "Citywide leadership, clerk, audit, and centralized costs." },
+        { "level": 4, "label": "Enhanced", "description": "Stronger oversight and support capacity." },
+        { "level": 5, "label": "Robust", "description": "Highly effective central administration." }
+      ],
+      "thresholds": [
+        { "deltaPctMin": -100, "deltaPctMax": -12, "headlines": ["Central administration strained"], "details": ["These functions (City Manager, Clerk, Auditor, Budget Office, contingencies) keep the organization running and accountable.", "Contingency reserves also absorb emergencies — cutting them raises fiscal risk."] },
+        { "deltaPctMin": -11, "deltaPctMax": 5, "headlines": ["Adopted administrative service"], "details": ["Leadership, records, audit, budgeting, and centralized costs."] },
+        { "deltaPctMin": 6, "deltaPctMax": 100, "headlines": ["Stronger oversight"], "details": ["More capacity for audit, budgeting, and emergency contingencies."] }
+      ],
+      "realWorldExample": "Central administration provides the oversight and contingency reserves a $2B organization needs."
+    }
+  }
+}

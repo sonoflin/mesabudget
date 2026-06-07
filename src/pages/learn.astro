@@ -1,0 +1,156 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { meta } from "../lib/budget-engine";
+
+const fmt = (n: number) =>
+  n >= 1e9 ? `$${(n / 1e9).toFixed(2)}B` : `$${(n / 1e6).toFixed(1)}M`;
+
+const glossary = [
+  { term: "General Fund", def: "Discretionary dollars for police, fire, libraries, parks, and citywide services. Council allocates these each year." },
+  { term: "HURF", def: "Highway User Revenue Fund — state fuel tax shared with cities, restricted to transportation." },
+  { term: "LSST", def: "Local Street Sales Tax — Mesa voter-approved 0.30% sales tax for streets only." },
+  { term: "LTAF", def: "Local Transportation Assistance Fund — state lottery funds restricted to transit." },
+  { term: "TPT", def: "Transaction Privilege Tax (sales tax). Mesa local rate is 2%." },
+  { term: "CIP", def: "Capital Improvement Program — long-term construction projects (excluded from this simulator)." },
+  { term: "Enterprise Fund", def: "Business-like utility operations funded by rates, not taxes. Must stay self-sustaining." },
+  { term: "PSPRS", def: "Public Safety Personnel Retirement System — pension costs add ~50%+ to sworn officer compensation." },
+  { term: "Utility Transfer", def: "Up to 30% of utility revenues may support General Government (25% PS, 5% general)." },
+  { term: "Quality of Life Tax", def: "Voter tax supporting up to 120 Police and 65 Fire sworn FTE plus enhanced services." },
+  { term: "Structural Deficit", def: "When ongoing expenses exceed ongoing revenues — Mesa faces this gap without action." },
+  { term: "GO Bonds", def: "General Obligation bonds paid by secondary property tax for voter-approved projects." },
+];
+---
+
+<Layout title="How Mesa's Budget Works | Mesa Budget Simulator">
+  <article class="mx-auto max-w-2xl px-4 py-8 pb-16 md:max-w-4xl lg:max-w-5xl lg:px-6 lg:py-10">
+    <a href={`${import.meta.env.BASE_URL}`} class="text-sm font-semibold text-mesa-blue">← Back to simulator</a>
+    <header class="mt-4">
+      <img src={`${import.meta.env.BASE_URL}mesa-logo.png`} alt="City of Mesa" class="h-14 w-auto" />
+      <h1 class="mt-4 text-2xl font-bold text-mesa-ink lg:text-3xl">How Mesa&apos;s Budget Works</h1>
+      <p class="mt-2 text-mesa-muted">
+        FY {meta.fiscalYear} operating budget: {fmt(meta.totalOperatingBudget)}.
+        Total city budget including CIP: {fmt(meta.totalCityBudget)}.
+      </p>
+    </header>
+
+    <section class="mt-8 space-y-4 text-sm text-mesa-ink leading-relaxed">
+      <h2 class="text-lg font-bold">Three types of money</h2>
+      <div class="rounded-2xl border border-mesa-blue/20 bg-mesa-blue/5 p-4">
+        <h3 class="font-semibold text-mesa-blue">1. General Government (flexible)</h3>
+        <p class="mt-1 text-mesa-muted">
+          Local sales tax, state shared revenue, and utility transfers fund police, fire, libraries, parks, and administration.
+          Council chooses how to allocate these dollars each year.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-mesa-amber/20 bg-mesa-amber/5 p-4">
+        <h3 class="font-semibold text-mesa-amber">2. Restricted (by law or voters)</h3>
+        <p class="mt-1 text-mesa-muted">
+          HURF and street taxes can only fix streets. Public Safety and Quality of Life taxes fund what voters approved.
+          You cannot move HURF dollars to the library — that is illegal.
+        </p>
+      </div>
+      <div class="rounded-2xl border border-mesa-red/20 bg-mesa-red/5 p-4">
+        <h3 class="font-semibold text-mesa-red">3. Enterprise (utility rates)</h3>
+        <p class="mt-1 text-mesa-muted">
+          Water, wastewater, trash, and energy are paid through utility bills. They must stay self-sustaining, with a
+          capped contribution to other city services.
+        </p>
+      </div>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-lg font-bold text-mesa-ink">Per-fund balancing</h2>
+      <p class="mt-2 text-sm text-mesa-muted leading-relaxed">
+        Unlike a single household budget, Mesa&apos;s budget has dozens of separate funds — each with its own revenue sources,
+        spending rules, and reserve requirements. In this simulator, you balance each fund independently, just as City staff must.
+        When you increase police in the General Fund, you must find cuts or revenue elsewhere in that same fund.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-lg font-bold text-mesa-ink">Two ways to build your budget</h2>
+      <p class="mt-2 text-sm text-mesa-muted leading-relaxed">
+        Research on citizen budget tools (like Balancing Act and Citizen Budget) finds people engage most when they
+        <strong class="text-mesa-ink"> set priorities first</strong>, then balance. So the simulator offers both:
+        start <strong class="text-mesa-ink">top-down</strong> by splitting the General Fund pie across priorities
+        (public safety, parks, library, community, transit, internal services) and let it set every dial — or go
+        <strong class="text-mesa-ink">line-by-line</strong>, dragging or typing exact amounts for each service.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-lg font-bold text-mesa-ink">The transit subsidy</h2>
+      <p class="mt-2 text-sm text-mesa-muted leading-relaxed">
+        Mesa funds transit mostly through regional Proposition 400/479 dollars and fares — but those don&apos;t cover
+        the full cost. The General Fund transfers about {fmt(meta.transitGfTransfer)} to the Transit Fund (up from
+        $21.8M the prior year) to pay for Mesa-only bus routes, Ride Choice paratransit, and the city&apos;s share of
+        light rail. In the simulator this subsidy is linked: lower it and the Transit Fund loses that revenue and
+        falls short, just like real life.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-lg font-bold text-mesa-ink">Internal &amp; support services</h2>
+      <p class="mt-2 text-sm text-mesa-muted leading-relaxed">
+        Roughly $157M of the General Fund pays for the behind-the-scenes services every department relies on:
+        technology and cybersecurity, human resources, finance and payroll, legal, engineering, and facilities.
+        They can look like &ldquo;overhead,&rdquo; but each is load-bearing — zero out HR and you can&apos;t hire,
+        pay, or insure employees; cut IT and core systems (including 911 dispatch and utility billing) go dark.
+        The simulator groups these together so you can expand and fine-tune each one.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-lg font-bold text-mesa-ink">The structural challenge</h2>
+      <p class="mt-2 text-sm text-mesa-muted leading-relaxed">
+        Mesa faces a gap between ongoing revenues and ongoing expenses. Key drivers include the state preempting residential
+        rental sales tax (~$25M/year), flat income tax reducing Urban Revenue Sharing, personnel wage growth, and rising
+        healthcare costs. The 5-year forecast in the simulator shows how this gap may widen without Council action.
+      </p>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-lg font-bold text-mesa-ink">FY 2025/26 context</h2>
+      <ul class="mt-3 space-y-2 text-sm text-mesa-muted">
+        <li>• $25M annual impact from state preempting residential rental TPT</li>
+        <li>• Utility contribution to General Government: {fmt(meta.utilityContributionAdopted)}</li>
+        <li>• Transit General Fund transfer: {fmt(meta.transitGfTransfer)}</li>
+        <li>• New Fire Stations 223 & 224; Gateway Library opening</li>
+        <li>• Departments asked for 2% base budget reductions</li>
+      </ul>
+    </section>
+
+    <section class="mt-10">
+      <h2 class="text-lg font-bold text-mesa-ink">Glossary</h2>
+      <dl class="mt-4 grid gap-3 md:grid-cols-2">
+        {glossary.map(({ term, def }) => (
+          <div class="rounded-xl bg-mesa-surface p-3 border border-mesa-ink/5 lg:p-4">
+            <dt class="font-semibold text-mesa-blue">{term}</dt>
+            <dd class="mt-1 text-sm text-mesa-muted">{def}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="mt-10 rounded-2xl mesa-gradient p-6 text-white">
+      <h2 class="text-lg font-bold">Ready to try?</h2>
+      <p class="mt-2 text-sm opacity-90">Balance the budget yourself and share your priorities.</p>
+      <a
+        href={`${import.meta.env.BASE_URL}`}
+        class="mt-4 inline-flex min-h-[44px] items-center rounded-xl bg-white px-6 py-3 font-semibold text-mesa-blue"
+      >
+        Open simulator
+      </a>
+    </section>
+
+    <section class="mt-10 text-xs text-mesa-muted">
+      <h2 class="font-semibold text-mesa-ink">Official sources</h2>
+      <ul class="mt-2 space-y-1">
+        <li><a href="https://www.mesaaz.gov/Government/Management-Budget/Budget/Budget-Documents" class="text-mesa-blue underline">Budget Documents</a></li>
+        <li><a href="https://openbudget.mesaaz.gov/" class="text-mesa-blue underline">Open Budget</a></li>
+        <li><a href="https://openexpenditures.mesaaz.gov/" class="text-mesa-blue underline">Open Expenditures</a></li>
+        <li><a href="https://www.mesaaz.gov/Government/Management-Budget/Budget/Major-Funds" class="text-mesa-blue underline">Major Funds</a></li>
+      </ul>
+    </section>
+  </article>
+</Layout>

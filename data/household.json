@@ -1,0 +1,55 @@
+{
+  "version": "1.0.0",
+  "fiscalYear": "2025/26",
+  "source": "FY 2025/26 Utility Rate Reports; Council Budget Summary secondary property tax",
+  "confidence": "adopted",
+  "medianHome": {
+    "saleValue": 436098,
+    "taxableValue": 186444,
+    "secondaryPropertyTaxAnnual": 160,
+    "ratePer100Taxable": 0.8582
+  },
+  "typicalUtilityCustomer": {
+    "description": "Representative single-family residential account (educational estimate from adopted rate structures)",
+    "monthlyBills": {
+      "water": 42,
+      "wastewater": 38,
+      "solidWaste": 28,
+      "naturalGas": 35,
+      "electric": 95
+    },
+    "annualTotal": 2856,
+    "environmentalComplianceFeeMonthly": 4.5,
+    "source": "Mesa utility rate schedules FY 2025/26 (rounded representative)"
+  },
+  "typicalCommercialCustomer": {
+    "description": "Representative small/mid-size commercial account (educational estimate from adopted rate structures)",
+    "monthlyBills": {
+      "water": 480,
+      "wastewater": 360,
+      "solidWaste": 210,
+      "naturalGas": 300,
+      "electric": 1600
+    },
+    "annualTotal": 35400,
+    "environmentalComplianceFeeMonthly": 35,
+    "source": "Mesa utility rate schedules FY 2025/26 (rounded representative commercial profile)"
+  },
+  "salesTax": {
+    "localRatePct": 2.0,
+    "combinedRatePct": 8.3,
+    "medianAnnualSpending": 45000,
+    "estimatedAnnualLocalTax": 900,
+    "source": "2% Mesa TPT; median spending illustrative"
+  },
+  "receiptCategories": [
+    { "id": "police", "label": "Police & Public Safety", "generalFundPct": 0.396, "source": "Adopted GF allocation" },
+    { "id": "fire-medical", "label": "Fire & Medical", "generalFundPct": 0.172, "source": "Adopted GF allocation" },
+    { "id": "library", "label": "Libraries", "generalFundPct": 0.021, "source": "Adopted GF allocation" },
+    { "id": "parks-recreation", "label": "Parks & Recreation", "generalFundPct": 0.051, "source": "Adopted GF allocation" },
+    { "id": "streets", "label": "Streets (restricted)", "restrictedPct": 0.168, "source": "HURF/LSST restricted" },
+    { "id": "transit", "label": "Transit", "generalFundPct": 0.04, "source": "GF transfer + restricted" },
+    { "id": "citywide-admin", "label": "City Administration & IT", "generalFundPct": 0.235, "source": "Adopted GF allocation" },
+    { "id": "other", "label": "Other Services", "generalFundPct": 0.085, "source": "Remaining GF" }
+  ]
+}

@@ -1,0 +1,8 @@
+name = "mesa-budget-share"
+main = "worker/index.ts"
+compatibility_date = "2025-01-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "mesa-budget-db"
+database_id = "local-dev"

@@ -1,0 +1,762 @@
+{
+  "meta": {
+    "fiscalYear": "2025/26",
+    "fiscalYearCode": "2026",
+    "totalOperatingBudget": 2038993868,
+    "totalCityBudget": 2790000000,
+    "cipExcluded": 751006132,
+    "fundCategoryTotals": {
+      "generalFund": 667616315,
+      "restricted": 562078662,
+      "enterprise": 281612013,
+      "other": 433578457,
+      "grants": 94108421
+    },
+    "fundCategoryRevenues": {
+      "generalFund": 470092237,
+      "restricted": 342838518,
+      "enterprise": 543216812,
+      "other": 606004981,
+      "grants": 81527060
+    },
+    "utilityContributionCapPct": 30,
+    "utilityContributionAdopted": 147630000,
+    "utilityOperatingRevenue": 492100000,
+    "transitGfTransfer": 26900000,
+    "localSalesTaxRatePct": 2,
+    "generatedAt": "2026-06-05T23:16:41.147Z",
+    "source": "https://data.mesaaz.gov/Office-of-Management-and-Budget/Open-Budget-Expenses/29q3-4ewh"
+  },
+  "funds": [
+    {
+      "id": "general-fund",
+      "name": "General Fund",
+      "type": "discretionary",
+      "description": "Discretionary dollars for police, fire, libraries, parks, and citywide services.",
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "reserveTargetPct": [
+        8,
+        10
+      ],
+      "reserveBeginning": 85000000,
+      "source": "Council Budget Summary",
+      "confidence": "estimate",
+      "revenues": [
+        {
+          "id": "local-sales-tax",
+          "name": "Local Sales & Use Tax",
+          "adoptedAmount": 347160484,
+          "adjustable": false,
+          "source": "Council Budget Summary (2% Mesa TPT)",
+          "confidence": "adopted"
+        },
+        {
+          "id": "state-shared",
+          "name": "State Shared Revenue",
+          "adoptedAmount": 120170937,
+          "adjustable": false,
+          "source": "Council Budget Summary (AZ formula)",
+          "confidence": "adopted"
+        },
+        {
+          "id": "utility-contribution",
+          "name": "Utility Fund Contribution",
+          "adoptedAmount": 147630000,
+          "adjustable": false,
+          "source": "Council resolution (≤30% of utility revenue)",
+          "confidence": "adopted"
+        },
+        {
+          "id": "other-gf-revenue",
+          "name": "Licenses, Fines & Charges",
+          "adoptedAmount": 52654894,
+          "adjustable": false,
+          "source": "Council Budget Summary",
+          "confidence": "adopted"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "police",
+          "name": "Mesa Police Department",
+          "adoptedAmount": 264459608,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "fire-medical",
+          "name": "Mesa Fire & Medical",
+          "adoptedAmount": 114614333,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "municipal-court",
+          "name": "Municipal Court",
+          "adoptedAmount": 10780014,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "library",
+          "name": "Mesa Public Library",
+          "adoptedAmount": 14164700,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "parks-recreation",
+          "name": "Parks & Recreation",
+          "adoptedAmount": 33936229,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "arts-culture",
+          "name": "Arts & Culture",
+          "adoptedAmount": 202183,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "community-services",
+          "name": "Community Services",
+          "adoptedAmount": 8493349,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "development-services",
+          "name": "Development Services",
+          "adoptedAmount": 11053475,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "transit-gf-transfer",
+          "name": "Transit Subsidy (to Transit Fund)",
+          "adoptedAmount": 26900000,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "it-innovation",
+          "name": "Innovation & Technology",
+          "adoptedAmount": 66534293,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "human-resources",
+          "name": "Human Resources",
+          "adoptedAmount": 6020975,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "financial-services",
+          "name": "Financial Services",
+          "adoptedAmount": 4772440,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "city-manager",
+          "name": "City Manager's Office",
+          "adoptedAmount": 10954905,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "city-attorney",
+          "name": "City Attorney",
+          "adoptedAmount": 8275815,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "engineering",
+          "name": "Engineering",
+          "adoptedAmount": 8895921,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "facilities",
+          "name": "Facilities Management",
+          "adoptedAmount": 25732342,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "economic-development",
+          "name": "Economic Development",
+          "adoptedAmount": 5358691,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "business-services",
+          "name": "Business Services",
+          "adoptedAmount": 14722576,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "internal-other",
+          "name": "Centralized & Other Support",
+          "adoptedAmount": 5850342,
+          "adjustable": true,
+          "ongoing": true,
+          "group": "internal-services",
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "gf-other-departments",
+          "name": "Other Departments & Transfers",
+          "adoptedAmount": 25894124,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "streets-fund",
+      "name": "Streets (HURF & LSST)",
+      "type": "restricted",
+      "description": "Legally restricted to street-related expenditures only.",
+      "fundRuleIds": [
+        "hurf-lsst"
+      ],
+      "reserveBeginning": 86400000,
+      "source": "Council Budget Summary",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "hurf-revenue",
+          "name": "HURF",
+          "adoptedAmount": 56536818,
+          "adjustable": true,
+          "maxDeltaPct": 5,
+          "source": "Open Budget",
+          "confidence": "adopted"
+        },
+        {
+          "id": "lsst-revenue",
+          "name": "Local Street Sales Tax",
+          "adoptedAmount": 54058832,
+          "adjustable": true,
+          "maxDeltaPct": 3,
+          "source": "Open Budget",
+          "confidence": "adopted"
+        },
+        {
+          "id": "streets-fund-reserves",
+          "name": "Use of Fund Balance / Reserves",
+          "adoptedAmount": 57053626,
+          "adjustable": false,
+          "source": "Balanced-budget reserve use (educational estimate)",
+          "confidence": "estimate"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "streets-hurf-lsst",
+          "name": "Streets (HURF & LSST)",
+          "adoptedAmount": 167649276,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "transit-fund",
+      "name": "Transit Fund",
+      "type": "restricted",
+      "description": "LTAF and transit revenues restricted to transit services.",
+      "fundRuleIds": [
+        "ltaf-transit"
+      ],
+      "source": "Council Budget Summary",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "transit-restricted-rev",
+          "name": "Fares + Regional Funds (Prop 400/479)",
+          "adoptedAmount": 4799569,
+          "adjustable": false,
+          "source": "Open Budget / RPTA agreements (estimate)",
+          "confidence": "estimate"
+        },
+        {
+          "id": "transit-gf-transfer-in",
+          "name": "General Fund Transit Subsidy",
+          "adoptedAmount": 26900000,
+          "adjustable": false,
+          "source": "Council Budget Summary ($26.9M, linked to General Fund)",
+          "confidence": "adopted"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "transit-fund",
+          "name": "Transit Fund Operations",
+          "adoptedAmount": 31699569,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "utility-enterprise",
+      "name": "Utility Enterprise",
+      "type": "enterprise",
+      "description": "Water, wastewater, solid waste, gas, and electric — funded by rates.",
+      "fundRuleIds": [
+        "utility-enterprise",
+        "utility-transfer"
+      ],
+      "reserveBeginning": 45000000,
+      "source": "Council Budget Summary",
+      "confidence": "estimate",
+      "revenues": [
+        {
+          "id": "utility-rates",
+          "name": "Utility Rate Revenue",
+          "adoptedAmount": 492100000,
+          "adjustable": true,
+          "maxDeltaPct": 8,
+          "source": "Council Budget Summary",
+          "confidence": "adopted"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "utilities-water",
+          "name": "Water & Wastewater",
+          "adoptedAmount": 131445925,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "utilities-solid-waste",
+          "name": "Solid Waste",
+          "adoptedAmount": 59040741,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "utilities-energy",
+          "name": "Energy (Gas & Electric)",
+          "adoptedAmount": 57480369,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "utility-enterprise-to-reserves",
+          "name": "Transfer to City Services, Capital & Reserves",
+          "adoptedAmount": 244132965,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Balanced-budget allocation (educational estimate)",
+          "confidence": "estimate"
+        }
+      ]
+    },
+    {
+      "id": "ps-tax-fund",
+      "name": "Public Safety Sales Tax",
+      "type": "restricted",
+      "description": "Voter-approved tax for public safety programs and projects.",
+      "fundRuleIds": [
+        "public-safety-tax"
+      ],
+      "source": "Voter ballot",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "ps-tax-rev",
+          "name": "PS Sales Tax Collections",
+          "adoptedAmount": 190268590,
+          "adjustable": false,
+          "source": "Open Budget",
+          "confidence": "adopted"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "ps-sales-tax",
+          "name": "Public Safety Sales Tax",
+          "adoptedAmount": 62789184,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "police-restricted",
+          "name": "Police Restricted Funds",
+          "adoptedAmount": 70655677,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "fire-restricted",
+          "name": "Fire Restricted Funds",
+          "adoptedAmount": 56823729,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "qol-fund",
+      "name": "Quality of Life Sales Tax",
+      "type": "restricted",
+      "description": "Voter tax supporting up to 120 Police and 65 Fire sworn FTE.",
+      "fundRuleIds": [
+        "quality-of-life"
+      ],
+      "source": "Voter ballot",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "qol-rev",
+          "name": "QoL Tax Collections",
+          "adoptedAmount": 45890495,
+          "adjustable": true,
+          "maxDeltaPct": 5,
+          "source": "Open Budget",
+          "confidence": "adopted"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "quality-of-life-tax",
+          "name": "Quality of Life Sales Tax",
+          "adoptedAmount": 45890495,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "parks-restricted-fund",
+      "name": "Parks Restricted Funds",
+      "type": "restricted",
+      "description": "Dedicated facility and program funds for parks — commercial facilities, cemetery, ECF, and restricted programs (not HURF/LSST).",
+      "fundRuleIds": [
+        "internal"
+      ],
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "parks-restricted-fund-reserves",
+          "name": "Use of Fund Balance / Reserves",
+          "adoptedAmount": 21890164,
+          "adjustable": false,
+          "source": "Balanced-budget reserve use (educational estimate)",
+          "confidence": "estimate"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "parks-restricted",
+          "name": "Parks Restricted Funds",
+          "adoptedAmount": 21890164,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "ecf-fund",
+      "name": "Environmental Compliance Fee",
+      "type": "restricted",
+      "description": "Monthly utility fee for unfunded environmental mandates (~$18.3M).",
+      "fundRuleIds": [
+        "environmental-fee"
+      ],
+      "source": "Council Budget Summary",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "ecf-rev",
+          "name": "ECF Collections",
+          "adoptedAmount": 18300000,
+          "adjustable": false,
+          "source": "Council Budget Summary",
+          "confidence": "adopted"
+        },
+        {
+          "id": "ecf-fund-reserves",
+          "name": "Use of Fund Balance / Reserves",
+          "adoptedAmount": 967859,
+          "adjustable": false,
+          "source": "Balanced-budget reserve use (educational estimate)",
+          "confidence": "estimate"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "environmental-compliance",
+          "name": "Environmental Compliance Fee",
+          "adoptedAmount": 19267859,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "ambulance-fund",
+      "name": "Ambulance Transport",
+      "type": "enterprise",
+      "description": "Self-sustaining EMS transport program.",
+      "fundRuleIds": [
+        "ambulance-fund"
+      ],
+      "source": "Council Budget Summary",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "ambulance-rev",
+          "name": "Transport Fees",
+          "adoptedAmount": 28192941.95,
+          "adjustable": true,
+          "maxDeltaPct": 10,
+          "source": "Open Budget",
+          "confidence": "estimate"
+        },
+        {
+          "id": "ambulance-fund-reserves",
+          "name": "Use of Fund Balance / Reserves",
+          "adoptedAmount": 1483839,
+          "adjustable": false,
+          "source": "Balanced-budget reserve use (educational estimate)",
+          "confidence": "estimate"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "ambulance-transport",
+          "name": "Ambulance Transport",
+          "adoptedAmount": 29676781,
+          "adjustable": true,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "ebt-fund",
+      "name": "Employee Benefits Trust",
+      "type": "trust",
+      "description": "Employee and retiree health benefits.",
+      "fundRuleIds": [
+        "trust-ebt"
+      ],
+      "source": "Council Budget Summary",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "ebt-premiums",
+          "name": "Employee/Retiree Premiums",
+          "adoptedAmount": 37497453.93,
+          "adjustable": false,
+          "source": "Council Budget Summary",
+          "confidence": "estimate"
+        },
+        {
+          "id": "ebt-city-contrib",
+          "name": "City Contribution",
+          "adoptedAmount": 100500000,
+          "adjustable": true,
+          "maxDeltaPct": 5,
+          "source": "Council Budget Summary",
+          "confidence": "adopted"
+        },
+        {
+          "id": "ebt-fund-reserves",
+          "name": "Use of Fund Balance / Reserves",
+          "adoptedAmount": 882005,
+          "adjustable": false,
+          "source": "Balanced-budget reserve use (educational estimate)",
+          "confidence": "estimate"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "employee-benefits-trust",
+          "name": "Employee Benefits Trust",
+          "adoptedAmount": 138879459,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "grants-fund",
+      "name": "Grant Funds",
+      "type": "grant",
+      "description": "Federal and state grants with designated uses.",
+      "fundRuleIds": [
+        "grants"
+      ],
+      "source": "Open Budget",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "grants-rev",
+          "name": "Grant Receipts",
+          "adoptedAmount": 81527060,
+          "adjustable": false,
+          "source": "Open Budget",
+          "confidence": "adopted"
+        },
+        {
+          "id": "grants-fund-reserves",
+          "name": "Use of Fund Balance / Reserves",
+          "adoptedAmount": 12581361,
+          "adjustable": false,
+          "source": "Balanced-budget reserve use (educational estimate)",
+          "confidence": "estimate"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "grants-restricted",
+          "name": "Grant Funds",
+          "adoptedAmount": 94108421,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        }
+      ]
+    },
+    {
+      "id": "other-funds",
+      "name": "Other & Internal Funds",
+      "type": "trust",
+      "description": "Contingency, debt service, internal transfers.",
+      "fundRuleIds": [
+        "internal"
+      ],
+      "source": "Open Budget",
+      "confidence": "adopted",
+      "revenues": [
+        {
+          "id": "other-rev",
+          "name": "Other Fund Revenue",
+          "adoptedAmount": 606004981,
+          "adjustable": false,
+          "source": "Open Budget",
+          "confidence": "adopted"
+        }
+      ],
+      "expenditures": [
+        {
+          "id": "contingency",
+          "name": "Contingency",
+          "adoptedAmount": 70000000,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "other-restricted-enterprise",
+          "name": "Other Restricted & Internal",
+          "adoptedAmount": 311556904,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Open Budget Expenses 29q3-4ewh",
+          "confidence": "adopted"
+        },
+        {
+          "id": "other-funds-to-reserves",
+          "name": "Contribution to Reserves & Capital",
+          "adoptedAmount": 224448077,
+          "adjustable": false,
+          "ongoing": true,
+          "source": "Balanced-budget allocation (educational estimate)",
+          "confidence": "estimate"
+        }
+      ]
+    }
+  ]
+}

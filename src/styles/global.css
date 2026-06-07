@@ -1,0 +1,126 @@
+@import "tailwindcss";
+@import "@fontsource-variable/mulish";
+@import "./tokens.css";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    @apply bg-mesa-sand text-mesa-ink antialiased;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-mesa-blue;
+  }
+}
+
+@utility bg-mesa-sand {
+  background-color: var(--color-mesa-sand);
+}
+@utility bg-mesa-red {
+  background-color: var(--color-mesa-red);
+}
+@utility bg-mesa-amber {
+  background-color: var(--color-mesa-amber);
+}
+@utility bg-mesa-blue {
+  background-color: var(--color-mesa-blue);
+}
+@utility bg-mesa-surface {
+  background-color: var(--color-mesa-surface);
+}
+@utility text-mesa-red {
+  color: var(--color-mesa-red);
+}
+@utility text-mesa-amber {
+  color: var(--color-mesa-amber);
+}
+@utility text-mesa-blue {
+  color: var(--color-mesa-blue);
+}
+@utility text-mesa-ink {
+  color: var(--color-mesa-ink);
+}
+@utility text-mesa-slate {
+  color: var(--color-mesa-slate);
+}
+@utility text-mesa-muted {
+  color: var(--color-mesa-muted);
+}
+@utility text-mesa-success {
+  color: var(--color-mesa-success);
+}
+@utility text-mesa-warning {
+  color: var(--color-mesa-warning);
+}
+@utility text-mesa-danger {
+  color: var(--color-mesa-danger);
+}
+@utility border-mesa-blue {
+  border-color: var(--color-mesa-blue);
+}
+@utility ring-mesa-blue {
+  --tw-ring-color: var(--color-mesa-blue);
+}
+
+@utility bg-mesa-sand-deep {
+  background-color: var(--color-mesa-sand-deep);
+}
+
+@utility glass {
+  background: rgb(255 255 255 / 0.85);
+  backdrop-filter: blur(12px);
+}
+
+/* Header chrome: slightly more opaque + saturation so brand colors stay
+   vivid behind the blur, with a hairline divider handled per-element. */
+@utility glass-header {
+  background: rgb(255 255 255 / 0.78);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  backdrop-filter: blur(16px) saturate(140%);
+}
+
+/* Thin three-mesa accent: echoes the logo's red→amber→blue mark. */
+@utility mesa-accent-bar {
+  background: linear-gradient(90deg, var(--color-mesa-red) 0%, var(--color-mesa-red) 28%, var(--color-mesa-amber) 50%, var(--color-mesa-blue) 72%, var(--color-mesa-blue) 100%);
+}
+
+@utility mesa-gradient {
+  background: linear-gradient(135deg, var(--color-mesa-red) 0%, var(--color-mesa-amber) 50%, var(--color-mesa-blue) 100%);
+}
+
+/* iOS safe-area helpers — the layout opts into viewport-fit=cover, so fixed
+   chrome at the screen edges must clear the notch / home indicator. */
+@utility pb-safe {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom));
+}
+@utility pb-safe-lg {
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+}
+
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+

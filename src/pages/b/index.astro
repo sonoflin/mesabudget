@@ -1,0 +1,10 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import ShareBudgetLoader from "../../islands/ShareBudgetLoader";
+---
+
+<Layout title="Shared Mesa Budget">
+  <div id="main-content">
+    <ShareBudgetLoader client:only="react" />
+  </div>
+</Layout>

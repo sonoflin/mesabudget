@@ -1,0 +1,705 @@
+{
+  "meta": {
+    "fiscalYear": "2025/26",
+    "fiscalYearCode": "2026",
+    "totalOperatingBudget": 2038993868,
+    "totalCityBudget": 2790000000,
+    "cipExcluded": 751006132,
+    "fundCategoryTotals": {
+      "generalFund": 667616315,
+      "restricted": 562078662,
+      "enterprise": 281612013,
+      "other": 433578457,
+      "grants": 94108421
+    },
+    "fundCategoryRevenues": {
+      "generalFund": 470092237,
+      "restricted": 342838518,
+      "enterprise": 543216812,
+      "other": 606004981,
+      "grants": 81527060
+    },
+    "utilityContributionCapPct": 30,
+    "utilityContributionAdopted": 147630000,
+    "utilityOperatingRevenue": 492100000,
+    "transitGfTransfer": 26900000,
+    "localSalesTaxRatePct": 2,
+    "generatedAt": "2026-06-05T23:16:41.147Z",
+    "source": "https://data.mesaaz.gov/Office-of-Management-and-Budget/Open-Budget-Expenses/29q3-4ewh"
+  },
+  "revenue": [
+    {
+      "id": "local-sales-tax",
+      "name": "Local Sales & Use Tax",
+      "adoptedAmount": 347868255,
+      "adjustable": true,
+      "maxDeltaPct": 5,
+      "fundRuleIds": [
+        "revenue-local"
+      ],
+      "description": "2% Mesa TPT.",
+      "source": "Open Budget Revenues 69ew-t3nx",
+      "confidence": "adopted"
+    },
+    {
+      "id": "state-shared",
+      "name": "State Shared Revenue",
+      "adoptedAmount": 219363473,
+      "adjustable": true,
+      "maxDeltaPct": 3,
+      "fundRuleIds": [
+        "revenue-state"
+      ],
+      "description": "URS, state sales tax, VLT.",
+      "source": "Open Budget Revenues",
+      "confidence": "adopted"
+    },
+    {
+      "id": "utility-contribution",
+      "name": "Utility Fund Contribution",
+      "adoptedAmount": 147000000,
+      "adjustable": true,
+      "maxDeltaPct": 8,
+      "fundRuleIds": [
+        "utility-transfer"
+      ],
+      "description": "Max 30% of utility revenues.",
+      "source": "Council Budget Summary",
+      "confidence": "adopted"
+    },
+    {
+      "id": "other-gf-revenue",
+      "name": "Licenses, Fines & Other GF",
+      "adoptedAmount": 0,
+      "adjustable": false,
+      "fundRuleIds": [
+        "revenue-other"
+      ],
+      "description": "Misc GF receipts.",
+      "source": "Open Budget Revenues",
+      "confidence": "adopted"
+    },
+    {
+      "id": "restricted-revenue",
+      "name": "Restricted & Enterprise Revenue",
+      "adoptedAmount": 886055330,
+      "adjustable": false,
+      "fundRuleIds": [
+        "grants"
+      ],
+      "description": "HURF, LSST, utility rates.",
+      "source": "Open Budget Revenues",
+      "confidence": "adopted"
+    },
+    {
+      "id": "other-funds-revenue",
+      "name": "Trust, Debt & Other Funds",
+      "adoptedAmount": 606004981,
+      "adjustable": false,
+      "fundRuleIds": [
+        "internal"
+      ],
+      "description": "EBT, debt service.",
+      "source": "Open Budget Revenues",
+      "confidence": "adopted"
+    },
+    {
+      "id": "grants-revenue",
+      "name": "Grant Revenue",
+      "adoptedAmount": 81527060,
+      "adjustable": false,
+      "fundRuleIds": [
+        "grants"
+      ],
+      "description": "Grant receipts.",
+      "source": "Open Budget Revenues",
+      "confidence": "adopted"
+    },
+    {
+      "id": "revenue-adjustment",
+      "name": "Revenue Reconciliation",
+      "adoptedAmount": -248825231,
+      "adjustable": false,
+      "fundRuleIds": [
+        "revenue-other"
+      ],
+      "description": "Balancing adjustment.",
+      "source": "ETL reconciliation",
+      "confidence": "adopted"
+    }
+  ],
+  "categories": [
+    {
+      "id": "police",
+      "name": "Mesa Police Department",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 264459608,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "General Fund police operations.",
+      "icon": "shield",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "fire-medical",
+      "name": "Mesa Fire & Medical",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 114614333,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "General Fund fire and medical.",
+      "icon": "flame",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "municipal-court",
+      "name": "Municipal Court",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 10780014,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Court services.",
+      "icon": "scale",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "library",
+      "name": "Mesa Public Library",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 14164700,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Five library locations.",
+      "icon": "book",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "parks-recreation",
+      "name": "Parks & Recreation",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 33936229,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Parks, pools, recreation.",
+      "icon": "trees",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "arts-culture",
+      "name": "Arts & Culture",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 202183,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund",
+        "quality-of-life"
+      ],
+      "description": "Mesa Arts Center and museums.",
+      "icon": "palette",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "community-services",
+      "name": "Community Services",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 8493349,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Housing, human services.",
+      "icon": "heart",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "development-services",
+      "name": "Development Services",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 11053475,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Permits and planning.",
+      "icon": "building",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "transit-gf-transfer",
+      "name": "Transit Subsidy (to Transit Fund)",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 26900000,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund",
+        "ltaf-transit"
+      ],
+      "description": "General Fund money that covers transit costs fares + regional funds don't: Mesa-only bus routes, Ride Choice paratransit, and light rail.",
+      "icon": "bus",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "streets-hurf-lsst",
+      "name": "Streets (HURF & LSST)",
+      "fundGroup": "restricted",
+      "fundId": "streets-fund",
+      "adoptedAmount": 167649276,
+      "adjustable": true,
+      "fundRuleIds": [
+        "hurf-lsst"
+      ],
+      "description": "Street-related only.",
+      "icon": "road",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "transit-fund",
+      "name": "Transit Fund Operations",
+      "fundGroup": "restricted",
+      "fundId": "transit-fund",
+      "adoptedAmount": 31699569,
+      "adjustable": true,
+      "fundRuleIds": [
+        "ltaf-transit"
+      ],
+      "description": "LTAF and transit.",
+      "icon": "bus",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "ps-sales-tax",
+      "name": "Public Safety Sales Tax",
+      "fundGroup": "restricted",
+      "fundId": "ps-tax-fund",
+      "adoptedAmount": 62789184,
+      "adjustable": false,
+      "fundRuleIds": [
+        "public-safety-tax"
+      ],
+      "description": "Voter-approved PS tax.",
+      "icon": "badge",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "quality-of-life-tax",
+      "name": "Quality of Life Sales Tax",
+      "fundGroup": "restricted",
+      "fundId": "qol-fund",
+      "adoptedAmount": 45890495,
+      "adjustable": true,
+      "fundRuleIds": [
+        "quality-of-life"
+      ],
+      "description": "Voter tax for sworn FTE.",
+      "icon": "sparkles",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "police-restricted",
+      "name": "Police Restricted Funds",
+      "fundGroup": "restricted",
+      "fundId": "ps-tax-fund",
+      "adoptedAmount": 70655677,
+      "adjustable": false,
+      "fundRuleIds": [
+        "public-safety-tax"
+      ],
+      "description": "PS tax allocations.",
+      "icon": "shield",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "fire-restricted",
+      "name": "Fire Restricted Funds",
+      "fundGroup": "restricted",
+      "fundId": "ps-tax-fund",
+      "adoptedAmount": 56823729,
+      "adjustable": false,
+      "fundRuleIds": [
+        "public-safety-tax"
+      ],
+      "description": "PS tax allocations.",
+      "icon": "flame",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "parks-restricted",
+      "name": "Parks Restricted Funds",
+      "fundGroup": "restricted",
+      "fundId": "parks-restricted-fund",
+      "adoptedAmount": 21890164,
+      "adjustable": false,
+      "fundRuleIds": [
+        "internal"
+      ],
+      "description": "Commercial facilities, cemetery, ECF, and program funds for parks — not street taxes.",
+      "icon": "trees",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "environmental-compliance",
+      "name": "Environmental Compliance Fee",
+      "fundGroup": "restricted",
+      "fundId": "ecf-fund",
+      "adoptedAmount": 19267859,
+      "adjustable": false,
+      "fundRuleIds": [
+        "environmental-fee"
+      ],
+      "description": "EPA mandates on utility bills.",
+      "icon": "leaf",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "ambulance-transport",
+      "name": "Ambulance Transport",
+      "fundGroup": "restricted",
+      "fundId": "ambulance-fund",
+      "adoptedAmount": 29676781,
+      "adjustable": true,
+      "fundRuleIds": [
+        "ambulance-fund"
+      ],
+      "description": "EMS transport.",
+      "icon": "ambulance",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "utilities-water",
+      "name": "Water & Wastewater",
+      "fundGroup": "enterprise",
+      "fundId": "utility-water",
+      "adoptedAmount": 131445925,
+      "adjustable": true,
+      "fundRuleIds": [
+        "utility-enterprise"
+      ],
+      "description": "Water/wastewater enterprise.",
+      "icon": "droplets",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "utilities-solid-waste",
+      "name": "Solid Waste",
+      "fundGroup": "enterprise",
+      "fundId": "utility-solid",
+      "adoptedAmount": 59040741,
+      "adjustable": true,
+      "fundRuleIds": [
+        "utility-enterprise"
+      ],
+      "description": "Trash and recycling.",
+      "icon": "trash",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "utilities-energy",
+      "name": "Energy (Gas & Electric)",
+      "fundGroup": "enterprise",
+      "fundId": "utility-energy",
+      "adoptedAmount": 57480369,
+      "adjustable": true,
+      "fundRuleIds": [
+        "utility-enterprise",
+        "utility-transfer"
+      ],
+      "description": "Gas and electric; transfer source.",
+      "icon": "zap",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "falcon-field",
+      "name": "Falcon Field Airport",
+      "fundGroup": "enterprise",
+      "fundId": "falcon-field",
+      "adoptedAmount": 2523000,
+      "adjustable": false,
+      "fundRuleIds": [
+        "falcon-field"
+      ],
+      "description": "Self-sustaining airport.",
+      "icon": "plane",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "employee-benefits-trust",
+      "name": "Employee Benefits Trust",
+      "fundGroup": "locked",
+      "fundId": "ebt-fund",
+      "adoptedAmount": 138879459,
+      "adjustable": false,
+      "fundRuleIds": [
+        "trust-ebt"
+      ],
+      "description": "Health benefits.",
+      "icon": "heart-pulse",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "contingency",
+      "name": "Contingency",
+      "fundGroup": "locked",
+      "fundId": "other-funds",
+      "adoptedAmount": 70000000,
+      "adjustable": false,
+      "fundRuleIds": [
+        "internal"
+      ],
+      "description": "Fiscal reserves.",
+      "icon": "life-buoy",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "grants-restricted",
+      "name": "Grant Funds",
+      "fundGroup": "locked",
+      "fundId": "grants-fund",
+      "adoptedAmount": 94108421,
+      "adjustable": false,
+      "fundRuleIds": [
+        "grants"
+      ],
+      "description": "Federal/state grants.",
+      "icon": "file-badge",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "it-innovation",
+      "name": "Innovation & Technology",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 66534293,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "City networks, cybersecurity, applications, and data systems that run every department.",
+      "icon": "cpu",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "human-resources",
+      "name": "Human Resources",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 6020975,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Recruiting, classification & pay, workers' comp safety, and employee/retiree benefits administration.",
+      "icon": "users",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "financial-services",
+      "name": "Financial Services",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 4772440,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Accounting, payroll, purchasing, treasury, and utility billing.",
+      "icon": "calculator",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "city-manager",
+      "name": "City Manager's Office",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 10954905,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Executive leadership that directs all city departments and implements Council policy.",
+      "icon": "briefcase",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "city-attorney",
+      "name": "City Attorney",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 8275815,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Legal counsel, prosecution, and contract/risk review for the city.",
+      "icon": "gavel",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 8895921,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Design, survey, and construction management for streets, utilities, and facilities.",
+      "icon": "ruler",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "facilities",
+      "name": "Facilities Management",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 25732342,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Upkeep of city buildings, HVAC, and public facilities.",
+      "icon": "wrench",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "economic-development",
+      "name": "Economic Development",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 5358691,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Business attraction and retention, and downtown/employment-area redevelopment.",
+      "icon": "trending-up",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "business-services",
+      "name": "Business Services",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 14722576,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Procurement, fleet coordination, and shared administrative support.",
+      "icon": "briefcase",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "internal-other",
+      "name": "Centralized & Other Support",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 5850342,
+      "adjustable": true,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "City Clerk, Mayor & Council, City Auditor, Budget Office, and centralized/contingency costs.",
+      "icon": "layers",
+      "group": "internal-services",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "gf-other-departments",
+      "name": "Other Departments & Transfers",
+      "fundGroup": "general",
+      "fundId": "general-fund",
+      "adoptedAmount": 25894124,
+      "adjustable": false,
+      "fundRuleIds": [
+        "general-fund"
+      ],
+      "description": "Smaller General Fund departments, transfers, and centralized costs.",
+      "icon": "landmark",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    },
+    {
+      "id": "other-restricted-enterprise",
+      "name": "Other Restricted & Internal",
+      "fundGroup": "locked",
+      "fundId": "other-funds",
+      "adoptedAmount": 311556904,
+      "adjustable": false,
+      "fundRuleIds": [
+        "internal"
+      ],
+      "description": "Remaining operating funds.",
+      "icon": "layers",
+      "source": "Open Budget Expenses 29q3-4ewh",
+      "confidence": "adopted"
+    }
+  ],
+  "validation": {
+    "categorySum": 2038993868,
+    "revenueSum": 2038993868
+  }
+}

@@ -1,0 +1,165 @@
+{
+  "version": "1.0.0",
+  "fiscalYear": "2025/26",
+  "globalRules": [
+    {
+      "id": "balanced-budget",
+      "title": "Balanced Budget Requirement",
+      "description": "Arizona Constitution and Title 42 A.R.S. require a balanced, all-inclusive budget. Appropriated resources must equal appropriated expenditures.",
+      "citation": "Ariz. Const. art. IX; A.R.S. Title 42",
+      "severity": "error"
+    }
+  ],
+  "funds": [
+    {
+      "id": "general-fund",
+      "name": "General Fund",
+      "type": "discretionary",
+      "description": "Discretionary resources for public safety, libraries, parks, and citywide services.",
+      "allowedCategoryIds": ["police", "fire-medical", "municipal-court", "library", "parks-recreation", "arts-culture", "community-services", "development-services", "citywide-admin", "contingency"],
+      "citation": "https://www.mesaaz.gov/Government/Management-Budget/Budget/Major-Funds"
+    },
+    {
+      "id": "hurf-lsst",
+      "name": "HURF & Local Street Sales Tax",
+      "type": "restricted",
+      "description": "Highway User Revenue Fund and voter-approved 0.30% Local Street Sales Tax. Both are restricted to street-related expenditures only.",
+      "allowedCategoryIds": ["streets-hurf-lsst"],
+      "blockedTargets": ["library", "parks-recreation", "police", "fire-medical", "arts-culture"],
+      "citation": "A.R.S. highway user revenue statutes; Mesa LSST ballot measure",
+      "alertMessage": "HURF and Local Street Sales Tax dollars can only fund street-related work — not libraries, parks, or general public safety."
+    },
+    {
+      "id": "ltaf-transit",
+      "name": "Local Transportation Assistance Fund",
+      "type": "restricted",
+      "description": "State lottery (LTAF) and transit fund revenues restricted to transit expenditures.",
+      "allowedCategoryIds": ["transit-operations"],
+      "blockedTargets": ["library", "police", "parks-recreation"],
+      "citation": "https://www.mesaaz.gov/Government/Management-Budget/Budget/Available-Revenue-Resources",
+      "alertMessage": "Transit and LTAF funds must stay in transit services."
+    },
+    {
+      "id": "public-safety-tax",
+      "name": "Public Safety Sales Tax",
+      "type": "restricted",
+      "description": "Voter-approved sales tax restricted to public safety programs and projects (2022 GO bond alignment).",
+      "allowedCategoryIds": ["ps-sales-tax"],
+      "adjustable": false,
+      "citation": "Mesa voter-approved Public Safety Sales Tax",
+      "alertMessage": "Public Safety Sales Tax is voter-dedicated and cannot be reallocated to non-public-safety services."
+    },
+    {
+      "id": "quality-of-life",
+      "name": "Quality of Life Sales Tax",
+      "type": "restricted-partial",
+      "description": "Voter-approved tax supporting up to 120 Police sworn FTE and 65 Fire sworn FTE plus enhanced services. Some flexibility within ballot envelope.",
+      "allowedCategoryIds": ["quality-of-life-tax", "police", "fire-medical", "arts-culture"],
+      "maxSwornPoliceFte": 120,
+      "maxSwornFireFte": 65,
+      "citation": "FY 2025/26 Council Budget Summary",
+      "alertMessage": "Quality of Life tax must stay within voter-approved public safety and enhanced services purposes."
+    },
+    {
+      "id": "utility-enterprise",
+      "name": "Utility Enterprise Funds",
+      "type": "enterprise",
+      "description": "Business-like utility operations funded by rates. Revenues must cover utility costs.",
+      "allowedCategoryIds": ["utilities-water", "utilities-solid-waste", "utilities-energy"],
+      "citation": "https://www.mesaaz.gov/Government/Management-Budget/Budget/Major-Funds"
+    },
+    {
+      "id": "utility-transfer",
+      "name": "Utility Fund Contribution to General Government",
+      "type": "restricted",
+      "description": "Council resolution caps utility transfer at 30% of operating revenues (25% public safety, 5% general services). FY 2025/26 budgeted at $147M.",
+      "maxTransferPct": 30,
+      "publicSafetyPct": 25,
+      "generalServicesPct": 5,
+      "adoptedTransfer": 147000000,
+      "allowedCategoryIds": ["utilities-energy", "utility-contribution"],
+      "citation": "Mesa City Council utility contribution resolution",
+      "alertMessage": "Utility contributions to General Government cannot exceed 30% of utility operating revenues."
+    },
+    {
+      "id": "environmental-fee",
+      "name": "Environmental Compliance Fee",
+      "type": "locked",
+      "description": "Monthly utility fee funding unfunded EPA and state environmental mandates (~$18.3M).",
+      "allowedCategoryIds": ["environmental-compliance"],
+      "adjustable": false,
+      "citation": "Environmental Compliance Fee Fund"
+    },
+    {
+      "id": "falcon-field",
+      "name": "Falcon Field Airport Fund",
+      "type": "locked",
+      "description": "Airport revenues must support airport operations per FAA restrictions. Cannot fund general city purposes.",
+      "allowedCategoryIds": ["falcon-field"],
+      "adjustable": false,
+      "citation": "https://www.mesaaz.gov/Government/Management-Budget/Budget/Major-Funds"
+    },
+    {
+      "id": "ambulance-fund",
+      "name": "Ambulance Transport Fund",
+      "type": "enterprise",
+      "description": "Self-sustaining emergency transport program; expanded citywide March 2025.",
+      "allowedCategoryIds": ["ambulance-transport"],
+      "citation": "FY 2025/26 Council Budget Summary"
+    },
+    {
+      "id": "trust-ebt",
+      "name": "Employee Benefit Trust",
+      "type": "locked",
+      "description": "Self-insured employee and retiree health benefits. City contribution ~$100.5M FY 2025/26.",
+      "allowedCategoryIds": ["employee-benefits-trust"],
+      "adjustable": false
+    },
+    {
+      "id": "grants",
+      "name": "Grant Funds",
+      "type": "locked",
+      "description": "Federal and state grants restricted to designated uses with reporting requirements.",
+      "allowedCategoryIds": ["grants-restricted"],
+      "adjustable": false,
+      "citation": "https://www.mesaaz.gov/Government/Management-Budget/Budget/Available-Revenue-Resources"
+    },
+    {
+      "id": "transient-lodging",
+      "name": "Transient Lodging Tax",
+      "type": "locked",
+      "description": "5% bed tax dedicated to Visit Mesa, convention center, spring training facilities, and related debt.",
+      "adjustable": false,
+      "citation": "https://www.mesaaz.gov/Government/Management-Budget/Budget/Available-Revenue-Resources"
+    },
+    {
+      "id": "debt-service",
+      "name": "Secondary Property Tax / GO Bonds",
+      "type": "locked",
+      "description": "Secondary property tax ($44.3M levy) pays GO bond debt only. Median home ~$160/year.",
+      "adjustable": false,
+      "citation": "FY 2025/26 Council Budget Summary"
+    }
+  ],
+  "transferRules": [
+    {
+      "fromFundId": "hurf-lsst",
+      "toFundId": "general-fund",
+      "allowed": false,
+      "message": "Transportation restricted funds cannot be transferred to General Fund services."
+    },
+    {
+      "fromFundId": "utility-enterprise",
+      "toFundId": "general-fund",
+      "allowed": true,
+      "maxPct": 30,
+      "message": "Utility transfer limited to 30% of utility operating revenues."
+    },
+    {
+      "fromFundId": "falcon-field",
+      "toFundId": "general-fund",
+      "allowed": false,
+      "message": "Falcon Field airport profits cannot fund general city purposes."
+    }
+  ]
+}
