@@ -17,6 +17,9 @@ import { ShareDialog } from "../components/ShareDialog";
 import { CompareView } from "../components/CompareView";
 import { BalanceBar } from "../components/BalanceBar";
 const ForecastChart = lazy(() => import("../components/ForecastChart").then((m) => ({ default: m.ForecastChart })));
+const FundAllocationChart = lazy(() =>
+  import("../components/FundAllocationChart").then((m) => ({ default: m.FundAllocationChart })),
+);
 import { TaxpayerReceipt } from "../components/TaxpayerReceipt";
 import { PrioritiesMode } from "../components/PrioritiesMode";
 import { TeachingMoment } from "../components/ImpactInline";
@@ -267,6 +270,21 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
         )}
 
         <FundHeader />
+
+        <Suspense
+          fallback={
+            <div
+              className="mt-4 h-40 animate-pulse rounded-2xl border border-mesa-ink/5 bg-mesa-surface lg:mt-5"
+              aria-hidden
+            />
+          }
+        >
+          <FundAllocationChart
+            fund={activeFund}
+            amounts={fundSnap?.expenditureAmounts ?? {}}
+            activeLineId={activeCategoryId}
+          />
+        </Suspense>
 
         {!readOnly && activeFund.id === "general-fund" && (
           <button

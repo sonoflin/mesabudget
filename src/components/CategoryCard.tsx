@@ -88,7 +88,7 @@ export function ExpenditureCard({
   };
 
   return (
-    <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="h-full">
+    <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="h-full" id={`exp-${expId}`}>
       <Card className={cn("h-full transition-all lg:p-5", selected && "ring-2 ring-mesa-blue shadow-md")}>
         <div className="flex items-start gap-3">
           <div className={cn(
