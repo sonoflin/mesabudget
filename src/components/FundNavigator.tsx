@@ -5,6 +5,7 @@ import { cn, formatCurrency } from "../lib/utils";
 import { funds, FUND_TYPE_LABELS, type Fund, type FundType } from "../lib/funds-model";
 import { useBudgetStore, useBalance } from "../store/budget-store";
 import { Badge } from "./ui/Badge";
+import { MesaScape } from "./ui/MesaScape";
 import { FundPickerSheet } from "./FundPickerSheet";
 
 const TYPE_BADGE: Record<FundType, "default" | "restricted" | "enterprise" | "muted"> = {
@@ -225,7 +226,8 @@ export function FundHeader() {
         className={cn("absolute inset-y-0 left-0 w-1.5", TYPE_DOT[activeFund.type])}
         aria-hidden
       />
-      <div className="flex flex-col gap-4 pl-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+      <MesaScape tone="ink" className="absolute bottom-0 right-0 h-20 w-2/3 max-w-xs opacity-60 sm:h-24" />
+      <div className="relative flex flex-col gap-4 pl-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
         <div className="min-w-0">
           <Badge variant={TYPE_BADGE[activeFund.type]}>{FUND_TYPE_LABELS[activeFund.type]}</Badge>
           <h2 className="mt-2 text-xl font-extrabold tracking-tight text-mesa-ink lg:text-2xl xl:text-[28px] xl:leading-tight">

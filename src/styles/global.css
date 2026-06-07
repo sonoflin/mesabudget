@@ -124,3 +124,44 @@
   }
 }
 
+/* ───────────────────────────────────────────────────────────
+   Brand graphic language — the "Three Mesas" desert system.
+   Original, license-safe art: inline SVG data URIs + CSS
+   gradients only (no external files), so every decorative
+   asset is tiny, crisp at any size, and immune to base-path
+   issues under /mesabudget/.
+   ─────────────────────────────────────────────────────────── */
+
+/* Fine film grain for depth on rich/gradient surfaces. Pair with a
+   low opacity (e.g. opacity-[0.07]) on a pointer-events-none overlay. */
+@utility mesa-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* Topographic contour lines (elevation-map motif) for light surfaces.
+   Tiles seamlessly; keep it whisper-quiet with a low opacity. */
+@utility mesa-contours {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='30' viewBox='0 0 112 30'%3E%3Cpath d='M0 15 Q28 3 56 15 T112 15' fill='none' stroke='%23252c26' stroke-width='1.2'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Soft "desert dawn" gradient mesh blending the three brand hues.
+   Subtle enough to sit behind text on a sand surface. */
+@utility mesa-dawn {
+  background-color: var(--color-mesa-sand);
+  background-image:
+    radial-gradient(120% 90% at 12% -10%, color-mix(in srgb, var(--color-mesa-amber) 20%, transparent), transparent 55%),
+    radial-gradient(110% 95% at 95% 0%, color-mix(in srgb, var(--color-mesa-blue) 18%, transparent), transparent 52%),
+    radial-gradient(150% 130% at 50% 130%, color-mix(in srgb, var(--color-mesa-red) 12%, transparent), transparent 60%);
+}
+
+/* Richer hero chrome — a deep red→blue sweep (dark enough that white
+   text clears WCAG AA where headlines sit) with a warm amber sunrise
+   glow kept low on the horizon, behind the mesa ridges. */
+@utility mesa-gradient-hero {
+  background-color: var(--color-mesa-blue-dark);
+  background-image:
+    radial-gradient(95% 85% at 82% 118%, color-mix(in srgb, var(--color-mesa-amber) 62%, transparent), transparent 58%),
+    linear-gradient(122deg, var(--color-mesa-red) 0%, var(--color-mesa-red-dark) 34%, var(--color-mesa-blue-dark) 78%, var(--color-mesa-blue) 100%);
+}
+

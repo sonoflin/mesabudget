@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "../components/ui/Card";
 import { Button } from "../components/ui/Button";
+import { MesaScape } from "../components/ui/MesaScape";
 import { formatCurrency, withBase } from "../lib/utils";
 import { categories, meta as budgetMeta } from "../lib/budget-data";
 import { SHARE_API_BASE } from "../lib/share-api";
@@ -53,11 +54,25 @@ export default function GalleryLoader() {
     : [];
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8 px-4 py-8 md:max-w-4xl lg:max-w-5xl lg:px-6 lg:py-10">
+    <div className="mx-auto max-w-2xl space-y-8 px-4 py-6 md:max-w-4xl lg:max-w-5xl lg:px-6 lg:py-8">
       <header>
-        <a href={withBase()} className="text-sm font-semibold text-mesa-blue md:text-base">← Back to simulator</a>
-        <h1 className="mt-4 text-2xl font-bold text-mesa-ink lg:text-3xl">Community Budgets</h1>
-        <p className="mt-2 text-mesa-muted lg:text-lg">See what Mesa residents prioritized when building their budgets.</p>
+        <a
+          href={withBase()}
+          className="inline-flex items-center gap-1 text-sm font-semibold text-mesa-blue transition-all hover:gap-2 md:text-base"
+        >
+          <span aria-hidden>←</span> Back to simulator
+        </a>
+        <div className="relative mt-3 overflow-hidden rounded-3xl mesa-gradient-hero px-5 pb-6 pt-7 text-white shadow-[var(--shadow-mesa)] sm:px-8 sm:pb-8 sm:pt-9">
+          <MesaScape tone="light" sun className="absolute inset-x-0 bottom-0 h-28 w-full" />
+          <div className="mesa-grain absolute inset-0 opacity-[0.07] mix-blend-overlay" aria-hidden />
+          <div className="mesa-accent-bar absolute inset-x-0 top-0 h-1" aria-hidden />
+          <div className="relative">
+            <h1 className="text-2xl font-extrabold tracking-tight drop-shadow-sm sm:text-3xl lg:text-4xl">Community Budgets</h1>
+            <p className="mt-2 max-w-[48ch] text-sm leading-relaxed text-white/90 sm:text-base">
+              See what Mesa residents prioritized when building their own city budgets.
+            </p>
+          </div>
+        </div>
       </header>
 
       {aggregate && aggregate.sampleSize > 0 && (
@@ -80,11 +95,15 @@ export default function GalleryLoader() {
       <section>
         <h2 className="font-bold text-mesa-ink mb-3">Recent budgets</h2>
         {gallery.length === 0 ? (
-          <Card>
-            <p className="text-mesa-muted">No shared budgets yet. Be the first!</p>
-            <a href={withBase()} className="mt-4 inline-flex">
-              <Button>Build your budget</Button>
-            </a>
+          <Card className="relative overflow-hidden">
+            <MesaScape tone="brand" className="absolute inset-x-0 bottom-0 h-24 w-full opacity-70" />
+            <div className="relative flex flex-col items-start gap-1 pb-10">
+              <h3 className="text-base font-bold text-mesa-ink">No shared budgets yet</h3>
+              <p className="text-sm text-mesa-muted">Be the first to build a budget and share your priorities with Mesa.</p>
+              <a href={withBase()} className="mt-4 inline-flex">
+                <Button>Build your budget</Button>
+              </a>
+            </div>
           </Card>
         ) : (
           <ul className="space-y-3 md:grid md:grid-cols-2 md:gap-4 md:space-y-0">

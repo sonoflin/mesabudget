@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Card } from "./ui/Card";
 import { Button } from "./ui/Button";
 import { Slider } from "./ui/Slider";
+import { MesaScape } from "./ui/MesaScape";
 import { calculateHouseholdImpact, getDefaultHousehold, type HouseholdProfile } from "../lib/household-impact";
 import { useBudgetStore } from "../store/budget-store";
 import { formatCurrency, withBase } from "../lib/utils";
@@ -23,10 +24,14 @@ export function TaxpayerReceipt({ onStart }: TaxpayerReceiptProps) {
       className="mx-auto max-w-md space-y-4"
     >
       <Card className="overflow-hidden p-0">
-        <div className="mesa-gradient px-5 py-4 text-white">
-          <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
-          <h2 className="mt-3 text-xl font-bold">Your Mesa Tax Receipt</h2>
-          <p className="text-sm opacity-90">See where your dollars go — then build your own budget</p>
+        <div className="relative overflow-hidden mesa-gradient-hero px-5 pb-5 pt-5 text-white">
+          <MesaScape tone="light" sun className="absolute inset-x-0 bottom-0 h-24 w-full" />
+          <div className="mesa-grain absolute inset-0 opacity-[0.08] mix-blend-overlay" aria-hidden />
+          <div className="relative">
+            <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
+            <h2 className="mt-3 text-xl font-bold">Your Mesa Tax Receipt</h2>
+            <p className="text-sm text-white/90">See where your dollars go — then build your own budget</p>
+          </div>
         </div>
         <div className="space-y-4 p-5">
           <Slider

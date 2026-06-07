@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
+import { MesaScape } from "./ui/MesaScape";
 import { formatCurrency, withBase } from "../lib/utils";
 import { meta } from "../lib/budget-engine";
 
@@ -21,15 +22,19 @@ export function OnboardingModal({ onComplete, onReceipt, onPriorities }: Onboard
         aria-labelledby="onboarding-title"
         className="max-h-[92vh] w-full max-w-md overflow-y-auto overflow-x-hidden rounded-t-3xl bg-mesa-surface shadow-2xl sm:max-w-lg sm:rounded-3xl"
       >
-        <div className="mesa-gradient px-6 pb-6 pt-7 text-white sm:px-8">
-          <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
-          <h2 id="onboarding-title" className="mt-4 text-2xl font-extrabold tracking-tight sm:text-[28px]">
-            Build Your Mesa Budget
-          </h2>
-          <p className="mt-2 max-w-[46ch] text-sm leading-relaxed text-white/90">
-            Balance Mesa&apos;s <strong className="font-bold">{formatCurrency(meta.totalOperatingBudget, true)}</strong> operating
-            budget — the same puzzle City Council faces each year.
-          </p>
+        <div className="relative overflow-hidden mesa-gradient-hero px-6 pb-7 pt-7 text-white sm:px-8">
+          <MesaScape tone="light" sun className="absolute inset-x-0 bottom-0 h-36 w-full sm:h-40" />
+          <div className="mesa-grain absolute inset-0 opacity-[0.08] mix-blend-overlay" aria-hidden />
+          <div className="relative">
+            <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
+            <h2 id="onboarding-title" className="mt-4 text-2xl font-extrabold tracking-tight sm:text-[28px]">
+              Build Your Mesa Budget
+            </h2>
+            <p className="mt-2 max-w-[46ch] text-sm leading-relaxed text-white/90">
+              Balance Mesa&apos;s <strong className="font-bold">{formatCurrency(meta.totalOperatingBudget, true)}</strong> operating
+              budget — the same puzzle City Council faces each year.
+            </p>
+          </div>
         </div>
 
         <div className="p-6 pb-safe-lg sm:p-8 sm:pb-8">
