@@ -11,7 +11,8 @@ export const baseUrl = import.meta.env.BASE_URL;
 /** Prefix an app-relative path with the Astro base URL. */
 export function withBase(path = ""): string {
   const normalized = path.startsWith("/") ? path.slice(1) : path;
-  return `${baseUrl}${normalized}`;
+  const base = baseUrl === "/" ? "/" : baseUrl.replace(/\/?$/, "/");
+  return normalized ? `${base}${normalized}` : base.slice(0, -1) || "/";
 }
 
 export function formatCurrency(amount: number, compact = false): string {

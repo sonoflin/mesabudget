@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { withBase } from "../lib/utils";
 
 interface Props {
   title?: string;
@@ -16,7 +17,7 @@ const { title = "Mesa Budget Simulator", description = "Build and share your own
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#2a6ebb" />
-    <link rel="icon" type="image/png" href={`${import.meta.env.BASE_URL}mesa-logo.png`} />
+    <link rel="icon" type="image/png" href={withBase("mesa-logo.png")} />
     <title>{title}</title>
   </head>
   <body>

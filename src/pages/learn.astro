@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { meta } from "../lib/budget-engine";
+import { withBase } from "../lib/utils";
 
 const fmt = (n: number) =>
   n >= 1e9 ? `$${(n / 1e9).toFixed(2)}B` : `$${(n / 1e6).toFixed(1)}M`;
@@ -23,9 +24,9 @@ const glossary = [
 
 <Layout title="How Mesa's Budget Works | Mesa Budget Simulator">
   <article class="mx-auto max-w-2xl px-4 py-8 pb-16 md:max-w-4xl lg:max-w-5xl lg:px-6 lg:py-10">
-    <a href={`${import.meta.env.BASE_URL}`} class="text-sm font-semibold text-mesa-blue">← Back to simulator</a>
+    <a href={withBase()} class="text-sm font-semibold text-mesa-blue">← Back to simulator</a>
     <header class="mt-4">
-      <img src={`${import.meta.env.BASE_URL}mesa-logo.png`} alt="City of Mesa" class="h-14 w-auto" />
+      <img src={withBase("mesa-logo.png")} alt="City of Mesa" class="h-14 w-auto" />
       <h1 class="mt-4 text-2xl font-bold text-mesa-ink lg:text-3xl">How Mesa&apos;s Budget Works</h1>
       <p class="mt-2 text-mesa-muted">
         FY {meta.fiscalYear} operating budget: {fmt(meta.totalOperatingBudget)}.
@@ -136,7 +137,7 @@ const glossary = [
       <h2 class="text-lg font-bold">Ready to try?</h2>
       <p class="mt-2 text-sm opacity-90">Balance the budget yourself and share your priorities.</p>
       <a
-        href={`${import.meta.env.BASE_URL}`}
+        href={withBase()}
         class="mt-4 inline-flex min-h-[44px] items-center rounded-xl bg-white px-6 py-3 font-semibold text-mesa-blue"
       >
         Open simulator
