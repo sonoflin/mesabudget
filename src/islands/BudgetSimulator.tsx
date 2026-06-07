@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { AnimatePresence } from "framer-motion";
 import { LayoutGrid, GraduationCap, RotateCcw } from "lucide-react";
 import { funds } from "../lib/funds-model";
@@ -15,6 +15,7 @@ import { ImpactDrawer } from "../components/ImpactDrawer";
 import { OnboardingModal } from "../components/OnboardingModal";
 import { ShareDialog } from "../components/ShareDialog";
 import { CompareView } from "../components/CompareView";
+import { BalanceBar } from "../components/BalanceBar";
 const ForecastChart = lazy(() => import("../components/ForecastChart").then((m) => ({ default: m.ForecastChart })));
 import { TaxpayerReceipt } from "../components/TaxpayerReceipt";
 import { PrioritiesMode } from "../components/PrioritiesMode";
@@ -60,7 +61,26 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
 
   const activeFund = useActiveFund();
   const balance = useBalance();
+  const activeFb = balance.fundBalances?.find((b) => b.fundId === activeFund.id);
   const [showShare, setShowShare] = useState(false);
+
+  // Reset is destructive (it discards the whole budget), so require a quick
+  // confirm: first click arms it, a second click within 3s actually resets.
+  const [confirmReset, setConfirmReset] = useState(false);
+  const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const handleReset = () => {
+    if (confirmReset) {
+      if (resetTimer.current) clearTimeout(resetTimer.current);
+      setConfirmReset(false);
+      reset();
+    } else {
+      setConfirmReset(true);
+      resetTimer.current = setTimeout(() => setConfirmReset(false), 3000);
+    }
+  };
+  useEffect(() => () => {
+    if (resetTimer.current) clearTimeout(resetTimer.current);
+  }, []);
 
   useEffect(() => {
     if (initialSnapshot) {
@@ -209,9 +229,21 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
                     Share
                   </Button>
                 </div>
-                <Button variant="ghost" size="sm" aria-label="Reset budget" onClick={reset} className="px-2.5 text-mesa-slate hover:text-mesa-red md:px-3">
-                  <RotateCcw className="h-[18px] w-[18px] shrink-0 md:hidden" aria-hidden />
-                  <span className="hidden md:inline">Reset</span>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  aria-label={confirmReset ? "Confirm reset budget" : "Reset budget"}
+                  onClick={handleReset}
+                  className={cn("px-2.5 md:px-3", confirmReset ? "text-mesa-red" : "text-mesa-slate hover:text-mesa-red")}
+                >
+                  {confirmReset ? (
+                    <span className="text-xs font-bold">Reset?</span>
+                  ) : (
+                    <>
+                      <RotateCcw className="h-[18px] w-[18px] shrink-0 md:hidden" aria-hidden />
+                      <span className="hidden md:inline">Reset</span>
+                    </>
+                  )}
                 </Button>
               </>
             )}
@@ -228,11 +260,6 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
       </header>
 
       <main className={cn(SHELL, "py-5 lg:py-8")}>
-        {!readOnly && (
-          <div className="mb-4 md:hidden">
-            <BalanceMeter />
-          </div>
-        )}
         {lastViolation && (
           <div className="mb-4">
             <TeachingMoment message={lastViolation} severity="error" onDismiss={clearViolation} />
@@ -260,25 +287,36 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
           </button>
         )}
 
-        <div className="mt-5 lg:mt-6 lg:grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[minmax(0,380px)_minmax(0,1fr)] xl:gap-8">
-          <aside className="min-w-0 space-y-4 lg:space-y-5">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-1 lg:gap-5">
-              <RevenuePanel />
-              <LeversPanel />
-            </div>
+        {/* Balance guidance sits right under the fund's status and above the
+            spending controls it refers to. Anchored for the Balance Bar jump. */}
+        {!readOnly && activeFb && activeFb.status !== "balanced" && (
+          <div id="fund-balance-resolver" className="mt-4 scroll-mt-24 lg:mt-5">
             <BalanceResolver />
-            <FundTeachingCard fund={activeFund} />
-          </aside>
+          </div>
+        )}
 
-          <section className="mt-5 min-w-0 lg:mt-0" aria-label="Expenditure categories">
-            <h3 className="mb-3 hidden items-baseline gap-2 lg:flex">
-              <span className="text-base font-bold text-mesa-ink xl:text-lg">Adjust spending</span>
-              <span className="text-xs font-medium text-mesa-muted">{activeFund.name}</span>
-            </h3>
+        <div className="mt-5 lg:mt-6 lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[minmax(0,400px)_minmax(0,1fr)] xl:gap-8">
+          {/* PRIMARY TASK — leads the page on mobile, right column on desktop */}
+          <section className="min-w-0 lg:col-start-2 lg:row-start-1" aria-label="Expenditure categories">
+            <div className="mb-3 flex items-baseline justify-between gap-2">
+              <h3 className="text-base font-bold text-mesa-ink xl:text-lg">Adjust spending</h3>
+              <span className="truncate text-xs font-medium text-mesa-muted">{activeFund.name}</span>
+            </div>
             <div className="space-y-4 xl:grid xl:grid-cols-2 xl:gap-5 xl:space-y-0">
               {expenditureCards}
             </div>
           </section>
+
+          {/* SUPPORTING CONTEXT — below spending on mobile, left column on desktop */}
+          <aside className="mt-8 min-w-0 space-y-4 lg:mt-0 lg:col-start-1 lg:row-start-1 lg:space-y-5">
+            <div>
+              <h3 className="text-base font-bold text-mesa-ink xl:text-lg">How this fund is funded</h3>
+              <p className="text-xs text-mesa-muted">Where revenue comes from and who controls it</p>
+            </div>
+            <RevenuePanel />
+            <LeversPanel />
+            <FundTeachingCard fund={activeFund} />
+          </aside>
         </div>
 
         {(showForecast || showCompare) && !readOnly && (
@@ -294,13 +332,13 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
       </main>
 
       {!readOnly && (
-        <footer className="fixed bottom-0 left-0 right-0 z-40 glass-header border-t border-mesa-ink/10 px-4 pt-3 pb-safe lg:hidden">
-          <div className="mx-auto flex max-w-3xl gap-2 md:max-w-2xl">
-            <Button variant="outline" className="flex-1" onClick={() => setShowCompare(!showCompare)}>Compare</Button>
-            <Button variant="outline" className="flex-1" onClick={() => setShowForecast(!showForecast)}>Forecast</Button>
-            <Button className="flex-1" onClick={() => setShowShare(true)} disabled={!balance.isBalanced}>Share</Button>
-          </div>
-        </footer>
+        <BalanceBar
+          onShare={() => setShowShare(true)}
+          onToggleForecast={() => setShowForecast(!showForecast)}
+          onToggleCompare={() => setShowCompare(!showCompare)}
+          showForecast={showForecast}
+          showCompare={showCompare}
+        />
       )}
 
       <AnimatePresence>

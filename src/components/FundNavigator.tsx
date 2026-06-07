@@ -17,7 +17,7 @@ const TYPE_BADGE: Record<FundType, "default" | "restricted" | "enterprise" | "mu
   debt: "muted",
 };
 
-const SHORT_NAMES: Record<string, string> = {
+export const SHORT_NAMES: Record<string, string> = {
   "general-fund": "General",
   "streets-fund": "Streets",
   "transit-fund": "Transit",
@@ -213,42 +213,81 @@ export function FundHeader() {
   const balance = useBalance();
   const fb = balance.fundBalances?.find((b) => b.fundId === activeFund.id);
 
+  const status = fb?.status ?? "balanced";
   const statusColor =
-    fb?.status === "deficit"
-      ? "text-mesa-red"
-      : fb?.status === "surplus"
-        ? "text-mesa-amber"
-        : "text-mesa-blue";
+    status === "deficit" ? "text-mesa-red" : status === "surplus" ? "text-mesa-amber" : "text-mesa-blue";
+  const verdict =
+    status === "deficit"
+      ? `${formatCurrency(Math.abs(fb?.difference ?? 0), true)} short`
+      : status === "surplus"
+        ? `${formatCurrency(Math.abs(fb?.difference ?? 0), true)} to allocate`
+        : "Balanced";
+  const verdictNote =
+    status === "deficit"
+      ? "Spending exceeds this fund's revenue"
+      : status === "surplus"
+        ? "Revenue not yet fully allocated"
+        : "Revenue covers spending";
+
+  const totalIn = fb?.totalRevenue ?? 0;
+  const totalOut = fb?.totalExpenditure ?? 0;
+  const max = Math.max(totalIn, totalOut, 1);
+  const over = totalOut - totalIn;
 
   return (
     <section className="relative overflow-hidden rounded-2xl border border-mesa-ink/8 bg-mesa-surface p-5 shadow-mesa-sm lg:p-6">
-      <span
-        className={cn("absolute inset-y-0 left-0 w-1.5", TYPE_DOT[activeFund.type])}
-        aria-hidden
-      />
-      <MesaScape tone="ink" className="absolute bottom-0 right-0 h-20 w-2/3 max-w-xs opacity-60 sm:h-24" />
-      <div className="relative flex flex-col gap-4 pl-2 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-        <div className="min-w-0">
-          <Badge variant={TYPE_BADGE[activeFund.type]}>{FUND_TYPE_LABELS[activeFund.type]}</Badge>
-          <h2 className="mt-2 text-xl font-extrabold tracking-tight text-mesa-ink lg:text-2xl xl:text-[28px] xl:leading-tight">
-            {activeFund.name}
-          </h2>
-          <p className="mt-1.5 max-w-[60ch] text-sm leading-relaxed text-mesa-muted lg:text-[15px]">
-            {activeFund.description}
-          </p>
-        </div>
-        {fb && (
-          <div className="shrink-0 rounded-xl border border-mesa-ink/8 bg-mesa-sand/60 px-4 py-3 sm:min-w-[160px] sm:text-right">
-            <div className={cn("text-xl font-extrabold leading-none lg:text-2xl", statusColor)}>
-              {fb.status === "deficit" ? `${formatCurrency(Math.abs(fb.difference), true)} short` : "Balanced"}
+      <span className={cn("absolute inset-y-0 left-0 w-1.5", TYPE_DOT[activeFund.type])} aria-hidden />
+      <MesaScape tone="ink" className="absolute bottom-0 right-0 h-20 w-2/3 max-w-xs opacity-50 sm:h-24" />
+      <div className="relative pl-2">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+          <div className="min-w-0">
+            <Badge variant={TYPE_BADGE[activeFund.type]}>{FUND_TYPE_LABELS[activeFund.type]}</Badge>
+            <h2 className="mt-2 text-xl font-extrabold tracking-tight text-mesa-ink lg:text-2xl xl:text-[28px] xl:leading-tight">
+              {activeFund.name}
+            </h2>
+            <p className="mt-1.5 max-w-[60ch] text-sm leading-relaxed text-mesa-muted lg:text-[15px]">
+              {activeFund.description}
+            </p>
+          </div>
+          {fb && (
+            <div className="shrink-0 sm:min-w-[150px] sm:text-right">
+              <div className={cn("text-2xl font-extrabold leading-none lg:text-[28px]", statusColor)}>{verdict}</div>
+              <div className="mt-1 text-xs font-medium text-mesa-muted">{verdictNote}</div>
             </div>
-            <div className="mt-1.5 flex items-center gap-3 text-xs font-medium text-mesa-muted sm:justify-end">
-              <span className="tabular-nums">
-                <span className="text-mesa-blue">{formatCurrency(fb.totalRevenue, true)}</span> in
+          )}
+        </div>
+
+        {fb && (
+          <div
+            className="mt-4 space-y-2 border-t border-mesa-ink/8 pt-4"
+            role="img"
+            aria-label={`Money in ${formatCurrency(totalIn)}, money out ${formatCurrency(totalOut)}`}
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="w-16 shrink-0 text-xs font-medium text-mesa-muted">Money in</span>
+              <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-mesa-sand">
+                <div
+                  className="h-full rounded-full bg-mesa-blue transition-[width] duration-500 ease-out"
+                  style={{ width: `${(totalIn / max) * 100}%` }}
+                />
+              </div>
+              <span className="w-16 shrink-0 text-right text-xs font-bold text-mesa-ink tabular-nums">
+                {formatCurrency(totalIn, true)}
               </span>
-              <span aria-hidden className="text-mesa-ink/20">·</span>
-              <span className="tabular-nums">
-                <span className="text-mesa-ink">{formatCurrency(fb.totalExpenditure, true)}</span> out
+            </div>
+            <div className="flex items-center gap-2.5">
+              <span className="w-16 shrink-0 text-xs font-medium text-mesa-muted">Money out</span>
+              <div className="h-2.5 flex-1 overflow-hidden rounded-full bg-mesa-sand">
+                <div
+                  className={cn(
+                    "h-full rounded-full transition-[width] duration-500 ease-out",
+                    over > 100_000 ? "bg-mesa-red" : "bg-mesa-ink/70",
+                  )}
+                  style={{ width: `${(totalOut / max) * 100}%` }}
+                />
+              </div>
+              <span className="w-16 shrink-0 text-right text-xs font-bold text-mesa-ink tabular-nums">
+                {formatCurrency(totalOut, true)}
               </span>
             </div>
           </div>
