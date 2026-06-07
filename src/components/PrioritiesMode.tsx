@@ -10,7 +10,7 @@ import { Slider } from "./ui/Slider";
 import {
   PRIORITY_AREAS, getAdoptedAreas, getGeneralFundTotal, getAdoptedFor, allocateToExpenditures,
 } from "../lib/priorities-engine";
-import { formatCurrency } from "../lib/utils";
+import { formatCurrency, withBase } from "../lib/utils";
 
 interface PrioritiesModeProps {
   onApply: (amounts: Record<string, number>) => void;
@@ -57,7 +57,7 @@ export function PrioritiesMode({ onApply, onCancel }: PrioritiesModeProps) {
       className="mx-auto min-h-screen max-w-2xl px-4 pb-36 pt-4"
     >
       <div className="mesa-gradient -mx-4 px-5 py-5 text-white sm:mx-0 sm:rounded-3xl">
-        <img src="/mesa-logo.png" alt="City of Mesa" className="h-9 w-auto brightness-0 invert" />
+        <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-9 w-auto brightness-0 invert" />
         <h2 className="mt-3 text-2xl font-bold">Start with your priorities</h2>
         <p className="mt-1 text-sm opacity-90">
           Decide how Mesa&apos;s <strong>{formatCurrency(gfTotal, true)}</strong> General Fund pie should be split.

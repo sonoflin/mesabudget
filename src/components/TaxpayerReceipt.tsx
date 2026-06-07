@@ -5,7 +5,7 @@ import { Button } from "./ui/Button";
 import { Slider } from "./ui/Slider";
 import { calculateHouseholdImpact, getDefaultHousehold, type HouseholdProfile } from "../lib/household-impact";
 import { useBudgetStore } from "../store/budget-store";
-import { formatCurrency } from "../lib/utils";
+import { formatCurrency, withBase } from "../lib/utils";
 
 interface TaxpayerReceiptProps {
   onStart: () => void;
@@ -24,7 +24,7 @@ export function TaxpayerReceipt({ onStart }: TaxpayerReceiptProps) {
     >
       <Card className="overflow-hidden p-0">
         <div className="mesa-gradient px-5 py-4 text-white">
-          <img src="/mesa-logo.png" alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
+          <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
           <h2 className="mt-3 text-xl font-bold">Your Mesa Tax Receipt</h2>
           <p className="text-sm opacity-90">See where your dollars go — then build your own budget</p>
         </div>

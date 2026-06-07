@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
-import { formatCurrency } from "../lib/utils";
+import { formatCurrency, withBase } from "../lib/utils";
 import { meta } from "../lib/budget-engine";
 
 interface OnboardingModalProps {
@@ -22,7 +22,7 @@ export function OnboardingModal({ onComplete, onReceipt, onPriorities }: Onboard
         className="max-h-[92vh] w-full max-w-md overflow-y-auto overflow-x-hidden rounded-t-3xl bg-mesa-surface shadow-2xl sm:max-w-lg sm:rounded-3xl"
       >
         <div className="mesa-gradient px-6 pb-6 pt-7 text-white sm:px-8">
-          <img src="/mesa-logo.png" alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
+          <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-10 w-auto brightness-0 invert" />
           <h2 id="onboarding-title" className="mt-4 text-2xl font-extrabold tracking-tight sm:text-[28px]">
             Build Your Mesa Budget
           </h2>
