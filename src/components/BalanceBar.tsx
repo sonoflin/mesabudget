@@ -1,4 +1,4 @@
-import { TrendingUp, Share2, ArrowRight, ArrowDown, Check } from "lucide-react";
+import { Share2, ArrowRight, ArrowDown, Check } from "lucide-react";
 import { Button } from "./ui/Button";
 import { cn, formatCurrency } from "../lib/utils";
 import { useBudgetStore, useBalance } from "../store/budget-store";
@@ -6,8 +6,6 @@ import { SHORT_NAMES } from "./FundNavigator";
 
 interface BalanceBarProps {
   onShare: () => void;
-  onToggleForecast: () => void;
-  showForecast: boolean;
 }
 
 /**
@@ -15,12 +13,9 @@ interface BalanceBarProps {
  * balance and a single contextual "next best step": close the active fund's gap,
  * jump to the next unbalanced fund, or share once everything balances. This keeps
  * the most important feedback next to the thumb while the user drags sliders.
+ * (Forecast + Review & share live in the sticky header on mobile.)
  */
-export function BalanceBar({
-  onShare,
-  onToggleForecast,
-  showForecast,
-}: BalanceBarProps) {
+export function BalanceBar({ onShare }: BalanceBarProps) {
   const activeFundId = useBudgetStore((s) => s.activeFundId);
   const setFund = useBudgetStore((s) => s.setFund);
   const balance = useBalance();
@@ -95,19 +90,6 @@ export function BalanceBar({
             </div>
             <p className="truncate text-[11px] font-medium text-mesa-muted">{cityLine}</p>
           </div>
-
-          <button
-            type="button"
-            onClick={onToggleForecast}
-            aria-pressed={showForecast}
-            aria-label="Toggle 5-year forecast"
-            className={cn(
-              "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors",
-              showForecast ? "bg-mesa-blue/10 text-mesa-blue" : "text-mesa-slate hover:bg-mesa-ink/5",
-            )}
-          >
-            <TrendingUp className="h-[18px] w-[18px]" />
-          </button>
 
           <Button variant={action.variant} size="md" className="shrink-0" onClick={action.onClick}>
             {action.icon}

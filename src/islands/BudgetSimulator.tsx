@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
 import { AnimatePresence, MotionConfig } from "framer-motion";
-import { LayoutGrid, GraduationCap, RotateCcw } from "lucide-react";
+import { LayoutGrid, GraduationCap, RotateCcw, TrendingUp, Share2 } from "lucide-react";
 import { type FundType } from "../lib/funds-model";
 import { categories } from "../lib/budget-data";
 import { useBudgetStore, useActiveFund, useBalance } from "../store/budget-store";
@@ -214,7 +214,9 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
           >
             <img src={withBase("mesa-logo.png")} alt="City of Mesa" className="h-9 w-auto shrink-0 lg:h-10" />
             <span className="hidden h-9 w-px bg-mesa-ink/10 sm:block lg:h-10" aria-hidden />
-            <span className="min-w-0">
+            {/* On phones the full-action header is tight, so we lean on the logo mark
+                (the FY / all-funds context also lives in the overview hero just below). */}
+            <span className={cn("min-w-0", !readOnly && "hidden sm:block")}>
               <span className="block truncate text-[15px] font-extrabold leading-tight tracking-tight text-mesa-ink lg:text-[17px]">
                 {readOnly ? (
                   snapshot.title ?? "Shared Budget"
@@ -237,7 +239,7 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
             </div>
           )}
 
-          <nav className="flex shrink-0 items-center gap-1 lg:gap-1.5" aria-label="Site and budget actions">
+          <nav className="flex shrink-0 items-center gap-0.5 lg:gap-1.5" aria-label="Site and budget actions">
             <a
               href={withBase("gallery")}
               aria-label="Gallery"
@@ -256,7 +258,29 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
             </a>
             {!readOnly && (
               <>
-                <span className="mx-1 hidden h-6 w-px bg-mesa-ink/10 lg:block" aria-hidden />
+                <span className="mx-0.5 h-6 w-px bg-mesa-ink/10 lg:mx-1" aria-hidden />
+                <div className="flex items-center gap-0.5 lg:hidden">
+                  <button
+                    type="button"
+                    onClick={() => setShowForecast(!showForecast)}
+                    aria-pressed={showForecast}
+                    aria-label="Toggle 5-year forecast"
+                    className={cn(
+                      "inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+                      showForecast ? "bg-mesa-blue/10 text-mesa-blue" : "text-mesa-slate hover:bg-mesa-ink/5",
+                    )}
+                  >
+                    <TrendingUp className="h-[18px] w-[18px]" aria-hidden />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowSummary(true)}
+                    aria-label="Review and share your budget"
+                    className="inline-flex h-10 w-10 items-center justify-center rounded-full text-mesa-blue transition-colors hover:bg-mesa-blue/10"
+                  >
+                    <Share2 className="h-[18px] w-[18px]" aria-hidden />
+                  </button>
+                </div>
                 <div className="hidden items-center gap-1.5 lg:flex">
                   <Button variant={showForecast ? "primary" : "outline"} size="sm" onClick={() => setShowForecast(!showForecast)}>
                     Forecast
@@ -398,11 +422,7 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
       </main>
 
       {!readOnly && (
-        <BalanceBar
-          onShare={() => setShowSummary(true)}
-          onToggleForecast={() => setShowForecast(!showForecast)}
-          showForecast={showForecast}
-        />
+        <BalanceBar onShare={() => setShowSummary(true)} />
       )}
 
       <AnimatePresence>
