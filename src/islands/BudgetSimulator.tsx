@@ -16,7 +16,7 @@ import { OnboardingModal } from "../components/OnboardingModal";
 import { ShareDialog } from "../components/ShareDialog";
 import { BalanceBar } from "../components/BalanceBar";
 import { CityOverview } from "../components/CityOverview";
-import { CityStatusRail } from "../components/CityStatusRail";
+import { RevenueView } from "../components/RevenueView";
 import { FundCompareCard } from "../components/FundCompareCard";
 import { BudgetSummary } from "../components/BudgetSummary";
 const ForecastChart = lazy(() => import("../components/ForecastChart").then((m) => ({ default: m.ForecastChart })));
@@ -98,9 +98,6 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-
-  const scrollToResolver = () =>
-    document.getElementById("fund-balance-resolver")?.scrollIntoView({ behavior: "smooth", block: "center" });
 
   // Reset is destructive (it discards the whole budget), so require a quick
   // confirm: first click arms it, a second click within 3s actually resets.
@@ -328,6 +325,8 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
 
         {view === "overview" ? (
           <CityOverview readOnly={readOnly} onFinish={() => setShowSummary(true)} />
+        ) : view === "revenue" ? (
+          <RevenueView />
         ) : (
           <>
             <FundHeader />
@@ -394,17 +393,12 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
                 style={{ top: headerH + 8 }}
                 className="mt-8 min-w-0 space-y-4 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:space-y-5 lg:sticky lg:self-start"
               >
-                {!readOnly && (
-                  <div className="hidden lg:block">
-                    <CityStatusRail onFinish={() => setShowSummary(true)} onResolveActive={scrollToResolver} />
-                  </div>
-                )}
                 <div>
                   <h3 className="text-base font-bold text-mesa-ink xl:text-lg">How this fund is funded</h3>
                   <p className="text-xs text-mesa-muted">Where revenue comes from and who controls it</p>
                 </div>
                 <RevenuePanel />
-                <LeversPanel />
+                <LeversPanel readOnly={readOnly} />
                 {!readOnly && <FundCompareCard />}
                 <FundTeachingCard fund={activeFund} />
               </aside>

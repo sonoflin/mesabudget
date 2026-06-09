@@ -126,24 +126,46 @@ export function CityOverview({ readOnly, onFinish }: CityOverviewProps) {
           </div>
         </div>
 
-        {/* Where the money goes — clickable stacked bar */}
-        <div className="p-4 sm:p-5">
-          <div className="mb-2 flex items-baseline justify-between gap-2">
-            <h3 className="text-sm font-bold text-mesa-ink">Where the money goes</h3>
-            <span className="text-xs text-mesa-muted">Tap a fund to open it</span>
+        {/* Where the money goes — clickable stacked bar + citywide money in vs out */}
+        <div className="grid gap-5 p-4 sm:p-5 lg:grid-cols-2">
+          <div>
+            <div className="mb-2 flex items-baseline justify-between gap-2">
+              <h3 className="text-sm font-bold text-mesa-ink">Where the money goes</h3>
+              <span className="text-xs text-mesa-muted">Tap a fund to open it</span>
+            </div>
+            <div className="flex h-4 w-full overflow-hidden rounded-full bg-mesa-sand">
+              {ranked.map(({ fund, out, color }) => (
+                <button
+                  key={fund.id}
+                  type="button"
+                  onClick={() => setFund(fund.id)}
+                  title={`${fund.name}: ${formatCurrency(out, true)} (${((out / totalOut) * 100).toFixed(1)}%)`}
+                  aria-label={`${fund.name}, ${formatCurrency(out)}, open fund`}
+                  className="h-full min-w-[2px] border-0 p-0 transition-opacity hover:opacity-80"
+                  style={{ width: `${(out / totalOut) * 100}%`, backgroundColor: color }}
+                />
+              ))}
+            </div>
           </div>
-          <div className="flex h-4 w-full overflow-hidden rounded-full bg-mesa-sand">
-            {ranked.map(({ fund, out, color }) => (
-              <button
-                key={fund.id}
-                type="button"
-                onClick={() => setFund(fund.id)}
-                title={`${fund.name}: ${formatCurrency(out, true)} (${((out / totalOut) * 100).toFixed(1)}%)`}
-                aria-label={`${fund.name}, ${formatCurrency(out)}, open fund`}
-                className="h-full min-w-[2px] border-0 p-0 transition-opacity hover:opacity-80"
-                style={{ width: `${(out / totalOut) * 100}%`, backgroundColor: color }}
-              />
-            ))}
+          <div className="lg:border-l lg:border-mesa-ink/8 lg:pl-5">
+            <div className="mb-2 flex items-baseline justify-between gap-2">
+              <h3 className="text-sm font-bold text-mesa-ink">Citywide money in vs out</h3>
+              <span
+                className={cn(
+                  "text-xs font-bold tabular-nums",
+                  progress.allBalanced ? "text-mesa-blue" : "text-mesa-red",
+                )}
+              >
+                {progress.allBalanced
+                  ? "Balanced"
+                  : `${formatCurrency(Math.abs(balance.totalRevenue - balance.totalExpenditure), true)} gap`}
+              </span>
+            </div>
+            <InOutBar
+              inAmt={balance.totalRevenue}
+              outAmt={balance.totalExpenditure}
+              status={progress.allBalanced ? "balanced" : "deficit"}
+            />
           </div>
         </div>
       </Card>

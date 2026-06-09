@@ -16,8 +16,8 @@ import { getInitialSnapshot as getLegacyInitial } from "../lib/budget-data";
 
 export type AppStep = "welcome" | "receipt" | "priorities" | "explore" | "forecast" | "review" | "share";
 export type ViewMode = "guided" | "expert";
-/** Desktop/mobile top-level surface: the all-funds dashboard or a single fund. */
-export type MainView = "overview" | "fund";
+/** Desktop/mobile top-level surface: the all-funds dashboard, the revenue levers, or a single fund. */
+export type MainView = "overview" | "fund" | "revenue";
 
 interface BudgetStore {
   snapshot: MultiFundSnapshot;

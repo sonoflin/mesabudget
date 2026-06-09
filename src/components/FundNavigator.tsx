@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown, LayoutGrid } from "lucide-react";
+import { ChevronDown, LayoutGrid, Coins } from "lucide-react";
 import { cn, formatCurrency } from "../lib/utils";
 import { funds, FUND_TYPE_LABELS, type Fund, type FundType } from "../lib/funds-model";
 import { useBudgetStore, useBalance } from "../store/budget-store";
@@ -8,8 +8,20 @@ import { Badge } from "./ui/Badge";
 import { MesaScape } from "./ui/MesaScape";
 import { FundPickerSheet } from "./FundPickerSheet";
 
-/** Tab that returns to the all-funds city overview. */
-function OverviewChip({ active, onSelect, fullWidth }: { active: boolean; onSelect: () => void; fullWidth?: boolean }) {
+/** A pseudo-fund tab (Overview / Revenue) with a leading icon. */
+function UtilityChip({
+  active,
+  onSelect,
+  fullWidth,
+  icon,
+  label,
+}: {
+  active: boolean;
+  onSelect: () => void;
+  fullWidth?: boolean;
+  icon: React.ReactNode;
+  label: string;
+}) {
   return (
     <button
       type="button"
@@ -24,8 +36,10 @@ function OverviewChip({ active, onSelect, fullWidth }: { active: boolean; onSele
           : "border-mesa-ink/12 bg-mesa-surface text-mesa-ink hover:border-mesa-blue/40 hover:bg-mesa-blue/5",
       )}
     >
-      <LayoutGrid className="h-4 w-4 shrink-0" aria-hidden />
-      <span className="leading-none">Overview</span>
+      <span className="shrink-0" aria-hidden>
+        {icon}
+      </span>
+      <span className="leading-none">{label}</span>
     </button>
   );
 }
@@ -130,6 +144,8 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
   const [pickerOpen, setPickerOpen] = useState(false);
 
   const isOverview = mainView === "overview";
+  const isRevenue = mainView === "revenue";
+  const isFundView = mainView === "fund";
   const activeFund = funds.find((f) => f.id === activeFundId) ?? funds[0];
   const activeBalance = balance.fundBalances?.find((b) => b.fundId === activeFund.id);
   const activeDeficit = activeBalance?.status === "deficit";
@@ -137,14 +153,15 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
   if (orientation === "vertical") {
     return (
       <div role="tablist" aria-label="Select a fund" className="flex flex-col gap-1.5">
-        <OverviewChip active={isOverview} onSelect={() => setMainView("overview")} fullWidth />
+        <UtilityChip active={isOverview} onSelect={() => setMainView("overview")} fullWidth icon={<LayoutGrid className="h-4 w-4" />} label="Overview" />
+        <UtilityChip active={isRevenue} onSelect={() => setMainView("revenue")} fullWidth icon={<Coins className="h-4 w-4" />} label="Revenue" />
         {funds.map((fund) => {
           const fb = balance.fundBalances?.find((b) => b.fundId === fund.id);
           return (
             <FundChip
               key={fund.id}
               fund={fund}
-              isActive={!isOverview && activeFundId === fund.id}
+              isActive={isFundView && activeFundId === fund.id}
               hasDeficit={fb?.status === "deficit"}
               expenditure={fb?.totalExpenditure}
               onSelect={() => setFund(fund.id)}
@@ -158,7 +175,7 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
 
   return (
     <>
-      {/* Mobile: overview toggle + one tappable control → full fund list sheet */}
+      {/* Mobile: overview + revenue toggles + one tappable control → full fund list sheet */}
       <div className="md:hidden flex items-center gap-2">
         <button
           type="button"
@@ -166,11 +183,23 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
           aria-pressed={isOverview}
           aria-label="City overview — all funds"
           className={cn(
-            "flex h-[52px] shrink-0 items-center gap-1.5 rounded-2xl border px-3 text-sm font-bold transition-colors",
+            "flex h-[52px] shrink-0 items-center justify-center rounded-2xl border px-3 transition-colors",
             isOverview ? "border-transparent bg-mesa-ink text-white" : "border-mesa-ink/15 bg-mesa-surface text-mesa-ink active:bg-mesa-ink/5",
           )}
         >
           <LayoutGrid className="h-[18px] w-[18px]" aria-hidden />
+        </button>
+        <button
+          type="button"
+          onClick={() => setMainView("revenue")}
+          aria-pressed={isRevenue}
+          aria-label="Revenue & levers"
+          className={cn(
+            "flex h-[52px] shrink-0 items-center justify-center rounded-2xl border px-3 transition-colors",
+            isRevenue ? "border-transparent bg-mesa-ink text-white" : "border-mesa-ink/15 bg-mesa-surface text-mesa-ink active:bg-mesa-ink/5",
+          )}
+        >
+          <Coins className="h-[18px] w-[18px]" aria-hidden />
         </button>
         <button
           type="button"
@@ -224,16 +253,18 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
       <div
         role="tablist"
         aria-label="Select a fund"
-        className="hidden md:flex md:flex-wrap md:gap-2"
+        className="hidden md:flex md:flex-wrap md:items-center md:gap-2"
       >
-        <OverviewChip active={isOverview} onSelect={() => setMainView("overview")} />
+        <UtilityChip active={isOverview} onSelect={() => setMainView("overview")} icon={<LayoutGrid className="h-4 w-4" />} label="Overview" />
+        <UtilityChip active={isRevenue} onSelect={() => setMainView("revenue")} icon={<Coins className="h-4 w-4" />} label="Revenue" />
+        <span className="mx-0.5 h-6 w-px bg-mesa-ink/10" aria-hidden />
         {funds.map((fund) => {
           const fb = balance.fundBalances?.find((b) => b.fundId === fund.id);
           return (
             <FundChip
               key={fund.id}
               fund={fund}
-              isActive={!isOverview && activeFundId === fund.id}
+              isActive={isFundView && activeFundId === fund.id}
               hasDeficit={fb?.status === "deficit"}
               expenditure={fb?.totalExpenditure}
               onSelect={() => setFund(fund.id)}
