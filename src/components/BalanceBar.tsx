@@ -1,4 +1,4 @@
-import { TrendingUp, GitCompare, Share2, ArrowRight, ArrowDown, Check } from "lucide-react";
+import { TrendingUp, Share2, ArrowRight, ArrowDown, Check } from "lucide-react";
 import { Button } from "./ui/Button";
 import { cn, formatCurrency } from "../lib/utils";
 import { useBudgetStore, useBalance } from "../store/budget-store";
@@ -7,9 +7,7 @@ import { SHORT_NAMES } from "./FundNavigator";
 interface BalanceBarProps {
   onShare: () => void;
   onToggleForecast: () => void;
-  onToggleCompare: () => void;
   showForecast: boolean;
-  showCompare: boolean;
 }
 
 /**
@@ -21,9 +19,7 @@ interface BalanceBarProps {
 export function BalanceBar({
   onShare,
   onToggleForecast,
-  onToggleCompare,
   showForecast,
-  showCompare,
 }: BalanceBarProps) {
   const activeFundId = useBudgetStore((s) => s.activeFundId);
   const setFund = useBudgetStore((s) => s.setFund);
@@ -111,18 +107,6 @@ export function BalanceBar({
             )}
           >
             <TrendingUp className="h-[18px] w-[18px]" />
-          </button>
-          <button
-            type="button"
-            onClick={onToggleCompare}
-            aria-pressed={showCompare}
-            aria-label="Toggle comparison with adopted budget"
-            className={cn(
-              "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors",
-              showCompare ? "bg-mesa-blue/10 text-mesa-blue" : "text-mesa-slate hover:bg-mesa-ink/5",
-            )}
-          >
-            <GitCompare className="h-[18px] w-[18px]" />
           </button>
 
           <Button variant={action.variant} size="md" className="shrink-0" onClick={action.onClick}>

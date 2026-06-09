@@ -2,7 +2,7 @@ import {
   Shield, Flame, Scale, BookOpen, Trees, Palette, Heart, Building2, Landmark,
   Bus, Route, BadgeCheck, Sparkles, Leaf, Ambulance, Droplets, Trash2, Zap,
   Plane, HeartPulse, LifeBuoy, FileBadge, Layers, Lock, Cpu, Users, Calculator,
-  Briefcase, Gavel, Ruler, Wrench, TrendingUp, type LucideIcon,
+  Briefcase, Gavel, Ruler, Wrench, TrendingUp, Minus, Plus, RotateCcw, type LucideIcon,
 } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
@@ -12,7 +12,7 @@ import { Slider } from "./ui/Slider";
 import { BalanceBadge } from "./BalanceMeter";
 import { ImpactInline } from "./ImpactInline";
 import type { Fund } from "../lib/funds-model";
-import { formatCurrency, cn } from "../lib/utils";
+import { formatCurrency, cn, parseAmount } from "../lib/utils";
 import { getTeachingForFund } from "../lib/fund-rules-engine";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -60,6 +60,52 @@ function PercentOfAdopted({
   );
 }
 
+/** Precise dollar entry: − / + steppers around a free-typed amount field. */
+function DollarStepper({
+  amount, min, max, step, onChange, label,
+}: {
+  amount: number; min: number; max: number; step: number;
+  onChange: (n: number) => void; label: string;
+}) {
+  const [draft, setDraft] = useState<string | null>(null);
+  const clamp = (n: number) => Math.max(min, Math.min(max, Math.round(n)));
+  const commit = () => {
+    if (draft == null) return;
+    const parsed = parseAmount(draft);
+    setDraft(null);
+    if (Number.isNaN(parsed)) return;
+    onChange(clamp(parsed));
+  };
+  const StepButton = ({ dir }: { dir: -1 | 1 }) => (
+    <button
+      type="button"
+      aria-label={`${dir > 0 ? "Increase" : "Decrease"} ${label} by ${formatCurrency(step, true)}`}
+      onClick={() => onChange(clamp(amount + dir * step))}
+      disabled={dir < 0 ? amount <= min : amount >= max}
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-mesa-ink/15 bg-mesa-surface text-mesa-blue transition-colors hover:bg-mesa-blue/5 disabled:opacity-40 disabled:hover:bg-mesa-surface"
+    >
+      {dir > 0 ? <Plus className="h-4 w-4" /> : <Minus className="h-4 w-4" />}
+    </button>
+  );
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <StepButton dir={-1} />
+      <input
+        type="text"
+        inputMode="numeric"
+        aria-label={`${label} dollar amount`}
+        value={draft ?? formatCurrency(amount, true)}
+        onFocus={(e) => { setDraft(String(amount)); requestAnimationFrame(() => e.target.select()); }}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={commit}
+        onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
+        className="w-24 rounded-lg border border-mesa-ink/15 bg-mesa-surface px-2 py-1 text-center text-sm font-bold tabular-nums text-mesa-ink focus:border-mesa-blue focus:outline-none"
+      />
+      <StepButton dir={1} />
+    </span>
+  );
+}
+
 interface ExpenditureCardProps {
   fund: Fund;
   expId: string;
@@ -86,6 +132,7 @@ export function ExpenditureCard({
     max: Math.round(adoptedAmount * 1.5),
     step,
   };
+  const isAtAdopted = Math.abs(amount - adoptedAmount) < Math.max(1, step / 2);
 
   return (
     <motion.div layout initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="h-full" id={`exp-${expId}`}>
@@ -119,9 +166,29 @@ export function ExpenditureCard({
             )}
             {adjustable && !readOnly && (
               <div className="mt-3.5">
-                <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
-                  <span className="text-xs font-medium text-mesa-muted">Drag or type a value</span>
-                  <PercentOfAdopted adopted={adoptedAmount} amount={amount} onChange={onChange} />
+                <div className="mb-2.5 flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+                  <DollarStepper
+                    label={name}
+                    amount={amount}
+                    min={bounds.min}
+                    max={bounds.max}
+                    step={bounds.step}
+                    onChange={onChange}
+                  />
+                  <div className="flex items-center gap-2">
+                    <PercentOfAdopted adopted={adoptedAmount} amount={amount} onChange={onChange} />
+                    {!isAtAdopted && (
+                      <button
+                        type="button"
+                        onClick={() => onChange(adoptedAmount)}
+                        className="inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-xs font-semibold text-mesa-muted transition-colors hover:bg-mesa-ink/5 hover:text-mesa-blue"
+                        aria-label={`Reset ${name} to adopted budget`}
+                      >
+                        <RotateCcw className="h-3 w-3" aria-hidden />
+                        Reset
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <Slider
                   label={`Adjust ${name}`}
@@ -133,7 +200,7 @@ export function ExpenditureCard({
                 />
                 <div className="mt-1 flex justify-between text-xs text-mesa-muted">
                   <span>{formatCurrency(bounds.min, true)}</span>
-                  <span className="text-mesa-blue font-medium">Adopted {formatCurrency(adoptedAmount, true)}</span>
+                  <span className="font-medium text-mesa-blue">Adopted {formatCurrency(adoptedAmount, true)}</span>
                   <span>{formatCurrency(bounds.max, true)}</span>
                 </div>
               </div>

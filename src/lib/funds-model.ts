@@ -56,6 +56,17 @@ export interface MultiFundSnapshot {
 export const meta = fundsData.meta;
 export const funds = fundsData.funds as Fund[];
 export const categories = budgetData.categories;
+
+/**
+ * Gross sum of every fund's adopted expenditures — this is what the simulator
+ * actually lets you balance (all 12 fund cards add up to this). It runs higher
+ * than `meta.totalOperatingBudget` because it's gross of interfund transfers and
+ * internal-service funds, which the City's net operating figure counts only once.
+ */
+export const totalAdoptedAppropriations = funds.reduce(
+  (sum, f) => sum + f.expenditures.reduce((a, e) => a + e.adoptedAmount, 0),
+  0,
+);
 export const revenue = budgetData.revenue;
 export const forecastMeta = forecastAssumptions;
 

@@ -16,20 +16,23 @@ import { getInitialSnapshot as getLegacyInitial } from "../lib/budget-data";
 
 export type AppStep = "welcome" | "receipt" | "priorities" | "explore" | "forecast" | "review" | "share";
 export type ViewMode = "guided" | "expert";
+/** Desktop/mobile top-level surface: the all-funds dashboard or a single fund. */
+export type MainView = "overview" | "fund";
 
 interface BudgetStore {
   snapshot: MultiFundSnapshot;
   activeFundId: string;
   activeCategoryId: string | null;
+  mainView: MainView;
   step: AppStep;
   viewMode: ViewMode;
   onboardingDone: boolean;
   lastViolation: string | null;
   showForecast: boolean;
-  showCompare: boolean;
 
   setFund: (id: string) => void;
   setCategory: (id: string | null) => void;
+  setMainView: (view: MainView) => void;
   setStep: (step: AppStep) => void;
   setViewMode: (mode: ViewMode) => void;
   completeOnboarding: () => void;
@@ -42,7 +45,6 @@ interface BudgetStore {
   setShareMeta: (title: string, authorName?: string) => void;
   clearViolation: () => void;
   setShowForecast: (show: boolean) => void;
-  setShowCompare: (show: boolean) => void;
   getLegacySnapshot: () => BudgetSnapshot;
 }
 
@@ -58,20 +60,21 @@ export const useBudgetStore = create<BudgetStore>()(
       snapshot: getInitialSnapshot(),
       activeFundId: "general-fund",
       activeCategoryId: null,
+      mainView: "overview",
       step: "welcome",
       viewMode: "guided",
       onboardingDone: false,
       lastViolation: null,
       showForecast: false,
-      showCompare: false,
 
-      setFund: (id) => set({ activeFundId: id, activeCategoryId: null }),
+      // Selecting a fund always drops you into that fund's detail view.
+      setFund: (id) => set({ activeFundId: id, activeCategoryId: null, mainView: "fund" }),
       setCategory: (id) => set({ activeCategoryId: id }),
+      setMainView: (view) => set({ mainView: view }),
       setStep: (step) => set({ step }),
       setViewMode: (mode) => set({ viewMode: mode }),
       completeOnboarding: () => set({ onboardingDone: true, step: "explore" }),
       setShowForecast: (show) => set({ showForecast: show }),
-      setShowCompare: (show) => set({ showCompare: show }),
 
       updateExpenditure: (fundId, expId, amount) => {
         const next = setFundExpenditure(get().snapshot, fundId, expId, amount);
@@ -98,6 +101,7 @@ export const useBudgetStore = create<BudgetStore>()(
           snapshot: next,
           activeFundId: "general-fund",
           activeCategoryId: null,
+          mainView: "fund",
           step: "explore",
           onboardingDone: true,
           lastViolation: checkViolations(next),
@@ -151,6 +155,7 @@ export const useBudgetStore = create<BudgetStore>()(
         snapshot: s.snapshot,
         onboardingDone: s.onboardingDone,
         viewMode: s.viewMode,
+        mainView: s.mainView,
       }),
     },
   ),

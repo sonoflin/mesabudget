@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { meta } from "../lib/budget-engine";
+import { meta, totalAdoptedAppropriations } from "../lib/budget-engine";
 import { withBase } from "../lib/utils";
 import { MesaScape } from "../components/ui/MesaScape";
 
@@ -56,6 +56,7 @@ const glossary = [
         <p class="mt-2 max-w-[52ch] text-sm leading-relaxed text-white/90 sm:text-base">
           FY {meta.fiscalYear} operating budget: <span class="font-semibold text-white">{fmt(meta.totalOperatingBudget)}</span>.
           Total city budget including CIP: {fmt(meta.totalCityBudget)}.
+          The simulator balances all 12 funds — {fmt(totalAdoptedAppropriations)} gross of interfund transfers.
         </p>
       </div>
     </header>

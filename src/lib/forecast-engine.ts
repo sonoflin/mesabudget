@@ -1,6 +1,6 @@
 import forecastAssumptions from "../../data/forecast-assumptions.json";
 import type { Fund, MultiFundSnapshot } from "./funds-model";
-import { funds, getRevenueControl } from "./funds-model";
+import { funds, getRevenueControl, getInitialSnapshot } from "./funds-model";
 import { computeFundRevenueLines } from "./fund-rules-engine";
 
 /**
@@ -34,13 +34,19 @@ const DISC_EXP_RATE = EXP_BY_TYPE.discretionary ?? 3.5;
 export interface ForecastFundYear {
   fundId: string;
   fundName: string;
+  fiscalYear: string;
+  fiscalYearCode: number;
   revenue: number;
   expenditure: number;
   gap: number; // expenditure − revenue (positive = structural deficit that year)
   reserveBegin: number;
   reserveEnd: number;
+  /** Next year's expenditure — the policy basis for the 8–10% reserve target. */
+  nextExpenditure: number;
   reserveTargetMin: number;
   reserveTargetMax: number;
+  /** Ending reserve as a % of next year's expenditure (Mesa's policy basis). */
+  reservePct: number;
   belowFloor: boolean;
 }
 
@@ -159,13 +165,17 @@ export function projectForecast(baseSnapshot: MultiFundSnapshot, yearsAhead = 5)
       return {
         fundId: fund.id,
         fundName: fund.name,
+        fiscalYear: fyLabel,
+        fiscalYearCode: fyCode,
         revenue,
         expenditure,
         gap: expenditure - revenue,
         reserveBegin,
         reserveEnd,
+        nextExpenditure: nextExp,
         reserveTargetMin,
         reserveTargetMax,
+        reservePct: nextExp > 0 ? (reserveEnd / nextExp) * 100 : 0,
         belowFloor: reserveEnd < reserveTargetMin,
       };
     });
@@ -183,6 +193,7 @@ export function projectForecast(baseSnapshot: MultiFundSnapshot, yearsAhead = 5)
       generalFundReserve: gf?.reserveEnd ?? 0,
       generalFundReserveTargetMin: gf?.reserveTargetMin ?? 0,
       generalFundReservePct: gf && gf.expenditure > 0 ? (gf.reserveEnd / gf.expenditure) * 100 : 0,
+      funds: fundYears,
     });
   }
 
@@ -226,6 +237,139 @@ export function getStructuralGapNarrative(): string {
 
 export function getStructuralDrivers(): string[] {
   return A.structuralGap.drivers;
+}
+
+// ---------------------------------------------------------------------------
+// Fund-balance policy (Mesa Financial Policy 2.1–2.3)
+// ---------------------------------------------------------------------------
+//  2.1  General Governmental & Enterprise funds adopt unrestricted reserves of
+//       8–10% of the FOLLOWING year's expenditures, maintained THROUGHOUT the
+//       forecast period.
+//  2.2  Council may deliberately adopt below 8%.
+//  2.3  If reserves fall below 8%, the City restores them within 1–3 years.
+
+const FLOOR_PCT = A.growth.reserveTargetPctMin; // 8
+const TARGET_TOP_PCT = A.growth.reserveTargetPctMax; // 10
+
+/** The two funds the City of Mesa publishes standalone 5-year forecasts for. */
+export const FORECAST_FUND_IDS = ["general-fund", "utility-enterprise"] as const;
+
+const money = (n: number) => {
+  const m = n / 1e6;
+  return Math.abs(m) >= 10 ? `$${Math.round(m)}M` : `$${m.toFixed(1)}M`;
+};
+
+/** "2027/28" → "FY27/28" for compact, consistent labels. */
+const fy = (fiscalYear: string) => fiscalYear.replace("20", "FY");
+
+/** Pull one fund's year-by-year series out of a citywide projection. */
+export function getFundSeries(forecast: ForecastYear[], fundId: string): ForecastFundYear[] {
+  return forecast
+    .map((y) => (y.funds ?? []).find((f) => f.fundId === fundId))
+    .filter((f): f is ForecastFundYear => Boolean(f));
+}
+
+export interface FundPolicyStatus {
+  fundId: string;
+  fundName: string;
+  firstFiscalYear: string;
+  lastFiscalYear: string;
+  /** First forecast year's ending reserve and its % of next-year expenditures. */
+  startReserve: number;
+  startPct: number;
+  /** Final forecast year's ending reserve and %. */
+  endReserve: number;
+  endPct: number;
+  /** Lowest reserve % across the whole horizon. */
+  minPct: number;
+  /** Reserve ≥ 8% floor in every year (policy 2.1 "maintained throughout"). */
+  maintained: boolean;
+  /** First year reserves dip below the 8% floor, if any. */
+  firstBreach?: { fiscalYear: string; reserve: number; targetMin: number; shortfall: number };
+  /** Policy 2.3: even top-up over 3 years to clear the worst shortfall. */
+  restorePerYear?: number;
+  tone: "good" | "warn" | "bad";
+  headline: string;
+}
+
+/** Evaluate a fund's 5-year series against Mesa's 8–10% reserve policy. */
+export function analyzeFundPolicy(series: ForecastFundYear[]): FundPolicyStatus | null {
+  if (series.length === 0) return null;
+  const first = series[0];
+  const last = series[series.length - 1];
+  const minPct = Math.min(...series.map((s) => s.reservePct));
+  const maintained = series.every((s) => !s.belowFloor);
+
+  const breach = series.find((s) => s.belowFloor);
+  const firstBreach = breach
+    ? {
+        fiscalYear: breach.fiscalYear,
+        reserve: breach.reserveEnd,
+        targetMin: breach.reserveTargetMin,
+        shortfall: Math.max(0, breach.reserveTargetMin - breach.reserveEnd),
+      }
+    : undefined;
+
+  const worstShortfall = Math.max(0, ...series.map((s) => s.reserveTargetMin - s.reserveEnd));
+  const restorePerYear = worstShortfall > 0 ? Math.round(worstShortfall / 3) : undefined;
+
+  const name = first.fundName;
+  const eroding = last.reservePct < first.reservePct - 0.5;
+  let tone: "good" | "warn" | "bad";
+  let headline: string;
+  if (!maintained) {
+    tone = "bad";
+    headline = `${name} reserves fall below Mesa's 8% floor by ${fy(firstBreach?.fiscalYear ?? last.fiscalYear)}. Policy requires a plan to restore within 1–3 years — roughly ${money(restorePerYear ?? 0)}/yr.`;
+  } else if (eroding && minPct < TARGET_TOP_PCT) {
+    tone = "warn";
+    headline = `${name} holds the 8% floor but erodes to about ${minPct.toFixed(0)}% of spending by ${fy(last.fiscalYear)} — inside the 8–10% cushion Mesa watches.`;
+  } else {
+    tone = "good";
+    headline = `${name} keeps reserves above Mesa's 8% floor every year, ending about ${last.reservePct.toFixed(0)}% of next-year spending — within policy.`;
+  }
+
+  return {
+    fundId: first.fundId,
+    fundName: name,
+    firstFiscalYear: first.fiscalYear,
+    lastFiscalYear: last.fiscalYear,
+    startReserve: first.reserveEnd,
+    startPct: first.reservePct,
+    endReserve: last.reserveEnd,
+    endPct: last.reservePct,
+    minPct,
+    maintained,
+    firstBreach,
+    restorePerYear,
+    tone,
+    headline,
+  };
+}
+
+// The adopted budget produces a fixed baseline trajectory; memoize it so every
+// render can cheaply show "how your choices move the future fund balance".
+let _baseline: ForecastYear[] | null = null;
+export function getAdoptedBaselineForecast(): ForecastYear[] {
+  if (!_baseline) _baseline = projectForecast(getInitialSnapshot(), 5);
+  return _baseline;
+}
+
+export interface ReserveDelta {
+  /** current final-year reserve − adopted final-year reserve. */
+  endDelta: number;
+  /** adopted-budget reserve by year, for overlaying as a baseline. */
+  baseline: { fiscalYear: string; reserve: number }[];
+}
+
+/** How the user's plan shifts a fund's reserve trajectory vs the adopted budget. */
+export function getReserveDeltaVsAdopted(fundId: string, current: ForecastYear[]): ReserveDelta {
+  const base = getFundSeries(getAdoptedBaselineForecast(), fundId);
+  const cur = getFundSeries(current, fundId);
+  const endDelta = (cur[cur.length - 1]?.reserveEnd ?? 0) - (base[base.length - 1]?.reserveEnd ?? 0);
+  return {
+    endDelta,
+    baseline: base.map((s) => ({ fiscalYear: s.fiscalYear, reserve: s.reserveEnd })),
+  };
 }
 
 export { forecastAssumptions };

@@ -28,7 +28,7 @@ export function InternalServicesGroup({
   const currentTotal = exps.reduce((s, e) => s + (amounts[e.id] ?? e.adoptedAmount), 0);
 
   return (
-    <Card className="h-full border-mesa-slate/20 bg-mesa-sand/60 xl:col-span-2 lg:p-5" id={`exp-${exps[0]?.id ?? "internal-services"}`}>
+    <Card className="h-full border-mesa-slate/20 bg-mesa-sand/60 xl:col-span-2 2xl:col-span-3 lg:p-5" id={`exp-${exps[0]?.id ?? "internal-services"}`}>
       <button
         type="button"
         onClick={() => setOpen(!open)}

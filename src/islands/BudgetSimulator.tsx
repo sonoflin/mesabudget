@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, lazy, Suspense } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, MotionConfig } from "framer-motion";
 import { LayoutGrid, GraduationCap, RotateCcw } from "lucide-react";
-import { funds } from "../lib/funds-model";
+import { type FundType } from "../lib/funds-model";
 import { categories } from "../lib/budget-data";
 import { useBudgetStore, useActiveFund, useBalance } from "../store/budget-store";
 import { BalanceMeter } from "../components/BalanceMeter";
@@ -14,8 +14,11 @@ import { LeversPanel } from "../components/LeversPanel";
 import { ImpactDrawer } from "../components/ImpactDrawer";
 import { OnboardingModal } from "../components/OnboardingModal";
 import { ShareDialog } from "../components/ShareDialog";
-import { CompareView } from "../components/CompareView";
 import { BalanceBar } from "../components/BalanceBar";
+import { CityOverview } from "../components/CityOverview";
+import { CityStatusRail } from "../components/CityStatusRail";
+import { FundCompareCard } from "../components/FundCompareCard";
+import { BudgetSummary } from "../components/BudgetSummary";
 const ForecastChart = lazy(() => import("../components/ForecastChart").then((m) => ({ default: m.ForecastChart })));
 const FundAllocationChart = lazy(() =>
   import("../components/FundAllocationChart").then((m) => ({ default: m.FundAllocationChart })),
@@ -41,16 +44,27 @@ interface BudgetSimulatorProps {
 /** Shared content width + responsive gutters for the app shell. */
 const SHELL = "mx-auto w-full max-w-[90rem] px-4 sm:px-6 lg:px-8";
 
+/** One-line "where am I" context shown above the spending controls. */
+const FUND_HINT: Record<FundType, string> = {
+  discretionary: "The flexible fund — Council can move these dollars between services.",
+  restricted: "Restricted by law or voters — dollars can't leave this fund's purpose.",
+  enterprise: "Funded by rates & fees — it must cover its own costs.",
+  trust: "Held in trust for a dedicated purpose.",
+  grant: "Grant dollars are tied to specific programs and reporting.",
+  debt: "Dedicated to repaying voter-approved debt.",
+};
+
 export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSimulatorProps) {
   const {
     snapshot,
     activeCategoryId,
+    mainView,
     onboardingDone,
     lastViolation,
     showForecast,
-    showCompare,
     step,
     setCategory,
+    setMainView,
     updateExpenditure,
     applyGeneralFundAllocation,
     reset,
@@ -58,7 +72,6 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
     loadSnapshot,
     clearViolation,
     setShowForecast,
-    setShowCompare,
     setStep,
   } = useBudgetStore();
 
@@ -66,6 +79,28 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
   const balance = useBalance();
   const activeFb = balance.fundBalances?.find((b) => b.fundId === activeFund.id);
   const [showShare, setShowShare] = useState(false);
+  const [showSummary, setShowSummary] = useState(false);
+
+  // readOnly (shared) budgets always render a single fund's detail.
+  const view = readOnly ? "fund" : mainView;
+
+  // The sticky header (logo bar + wrapping fund tabs) changes height with the
+  // viewport, so measure it and offset the sticky desktop rail from it instead
+  // of hard-coding a fragile magic number.
+  const headerRef = useRef<HTMLElement>(null);
+  const [headerH, setHeaderH] = useState(140);
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const update = () => setHeaderH(el.offsetHeight);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const scrollToResolver = () =>
+    document.getElementById("fund-balance-resolver")?.scrollIntoView({ behavior: "smooth", block: "center" });
 
   // Reset is destructive (it discards the whole budget), so require a quick
   // confirm: first click arms it, a second click within 3s actually resets.
@@ -159,6 +194,7 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
   })();
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="min-h-screen pb-28 lg:pb-12">
       {!readOnly && !onboardingDone && step !== "receipt" && step !== "priorities" && (
         <OnboardingModal
@@ -168,7 +204,7 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
         />
       )}
 
-      <header className="sticky top-0 z-40 glass-header border-b border-mesa-ink/10 shadow-mesa-sm">
+      <header ref={headerRef} className="sticky top-0 z-40 glass-header border-b border-mesa-ink/10 shadow-mesa-sm">
         <div className="mesa-accent-bar h-[3px] w-full" aria-hidden />
         <div className={cn(SHELL, "flex h-16 items-center justify-between gap-3 lg:h-[68px]")}>
           <a
@@ -190,7 +226,7 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
                 )}
               </span>
               <span className="block truncate text-xs font-medium text-mesa-muted lg:text-[13px]">
-                {readOnly ? "Shared budget" : `FY ${meta.fiscalYear} · Operating budget`}
+                {readOnly ? "Shared budget" : `FY ${meta.fiscalYear} · All 12 funds`}
               </span>
             </span>
           </a>
@@ -222,14 +258,11 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
               <>
                 <span className="mx-1 hidden h-6 w-px bg-mesa-ink/10 lg:block" aria-hidden />
                 <div className="hidden items-center gap-1.5 lg:flex">
-                  <Button variant={showCompare ? "primary" : "outline"} size="sm" onClick={() => setShowCompare(!showCompare)}>
-                    Compare
-                  </Button>
                   <Button variant={showForecast ? "primary" : "outline"} size="sm" onClick={() => setShowForecast(!showForecast)}>
                     Forecast
                   </Button>
-                  <Button size="sm" onClick={() => setShowShare(true)} disabled={!balance.isBalanced}>
-                    Share
+                  <Button size="sm" onClick={() => setShowSummary(true)}>
+                    Review &amp; share
                   </Button>
                 </div>
                 <Button
@@ -269,93 +302,106 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
           </div>
         )}
 
-        <FundHeader />
+        {view === "overview" ? (
+          <CityOverview readOnly={readOnly} onFinish={() => setShowSummary(true)} />
+        ) : (
+          <>
+            <FundHeader />
 
-        <Suspense
-          fallback={
-            <div
-              className="mt-4 h-40 animate-pulse rounded-2xl border border-mesa-ink/5 bg-mesa-surface lg:mt-5"
-              aria-hidden
-            />
-          }
-        >
-          <FundAllocationChart
-            fund={activeFund}
-            amounts={fundSnap?.expenditureAmounts ?? {}}
-            activeLineId={activeCategoryId}
-          />
-        </Suspense>
+            <Suspense
+              fallback={
+                <div
+                  className="mt-4 h-40 animate-pulse rounded-2xl border border-mesa-ink/5 bg-mesa-surface lg:mt-5"
+                  aria-hidden
+                />
+              }
+            >
+              <FundAllocationChart
+                fund={activeFund}
+                amounts={fundSnap?.expenditureAmounts ?? {}}
+                activeLineId={activeCategoryId}
+              />
+            </Suspense>
 
-        {!readOnly && activeFund.id === "general-fund" && (
-          <button
-            type="button"
-            onClick={() => setStep("priorities")}
-            className="mt-4 flex w-full items-center justify-between gap-3 rounded-2xl border border-mesa-blue/25 bg-gradient-to-r from-mesa-blue/10 to-mesa-blue/0 px-4 py-3.5 text-left transition-all hover:border-mesa-blue/40 hover:from-mesa-blue/15 lg:px-5"
-          >
-            <span className="flex items-center gap-3">
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-mesa-blue/15 text-mesa-blue" aria-hidden>
-                <LayoutGrid className="h-[18px] w-[18px]" />
-              </span>
-              <span className="text-sm font-semibold text-mesa-ink lg:text-[15px]">
-                Prefer to start big-picture?{" "}
-                <span className="text-mesa-blue">Allocate the General Fund by priorities</span>
-              </span>
-            </span>
-            <span className="shrink-0 text-lg text-mesa-blue" aria-hidden>→</span>
-          </button>
-        )}
-
-        {/* Balance guidance sits right under the fund's status and above the
-            spending controls it refers to. Anchored for the Balance Bar jump. */}
-        {!readOnly && activeFb && activeFb.status !== "balanced" && (
-          <div id="fund-balance-resolver" className="mt-4 scroll-mt-24 lg:mt-5">
-            <BalanceResolver />
-          </div>
-        )}
-
-        <div className="mt-5 lg:mt-6 lg:grid lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[minmax(0,400px)_minmax(0,1fr)] xl:gap-8">
-          {/* PRIMARY TASK — leads the page on mobile, right column on desktop */}
-          <section className="min-w-0 lg:col-start-2 lg:row-start-1" aria-label="Expenditure categories">
-            <div className="mb-3 flex items-baseline justify-between gap-2">
-              <h3 className="text-base font-bold text-mesa-ink xl:text-lg">Adjust spending</h3>
-              <span className="truncate text-xs font-medium text-mesa-muted">{activeFund.name}</span>
-            </div>
-            <div className="space-y-4 xl:grid xl:grid-cols-2 xl:gap-5 xl:space-y-0">
-              {expenditureCards}
-            </div>
-          </section>
-
-          {/* SUPPORTING CONTEXT — below spending on mobile, left column on desktop */}
-          <aside className="mt-8 min-w-0 space-y-4 lg:mt-0 lg:col-start-1 lg:row-start-1 lg:space-y-5">
-            <div>
-              <h3 className="text-base font-bold text-mesa-ink xl:text-lg">How this fund is funded</h3>
-              <p className="text-xs text-mesa-muted">Where revenue comes from and who controls it</p>
-            </div>
-            <RevenuePanel />
-            <LeversPanel />
-            <FundTeachingCard fund={activeFund} />
-          </aside>
-        </div>
-
-        {(showForecast || showCompare) && !readOnly && (
-          <div className="mt-6 space-y-4 lg:mt-8">
-            {showForecast && (
-              <Suspense fallback={<div className="p-4 text-sm text-mesa-muted">Loading forecast…</div>}>
-                <ForecastChart />
-              </Suspense>
+            {!readOnly && activeFund.id === "general-fund" && (
+              <button
+                type="button"
+                onClick={() => setStep("priorities")}
+                className="mt-4 flex w-full items-center justify-between gap-3 rounded-2xl border border-mesa-blue/25 bg-gradient-to-r from-mesa-blue/10 to-mesa-blue/0 px-4 py-3.5 text-left transition-all hover:border-mesa-blue/40 hover:from-mesa-blue/15 lg:px-5"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-mesa-blue/15 text-mesa-blue" aria-hidden>
+                    <LayoutGrid className="h-[18px] w-[18px]" />
+                  </span>
+                  <span className="text-sm font-semibold text-mesa-ink lg:text-[15px]">
+                    Prefer to start big-picture?{" "}
+                    <span className="text-mesa-blue">Allocate the General Fund by priorities</span>
+                  </span>
+                </span>
+                <span className="shrink-0 text-lg text-mesa-blue" aria-hidden>→</span>
+              </button>
             )}
-            {showCompare && <CompareView />}
+
+            {/* Balance guidance sits right under the fund's status and above the
+                spending controls it refers to. Anchored for the Balance Bar jump. */}
+            {!readOnly && activeFb && activeFb.status !== "balanced" && (
+              <div id="fund-balance-resolver" className="mt-4 scroll-mt-24 lg:mt-5">
+                <BalanceResolver />
+              </div>
+            )}
+
+            <div className="mt-5 lg:mt-6 lg:grid lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)] lg:items-start lg:gap-6 xl:grid-cols-[minmax(0,380px)_minmax(0,1fr)] xl:gap-8">
+              {/* PRIMARY TASK — leads the page on mobile, right column on desktop */}
+              <section className="min-w-0 lg:col-start-2 lg:row-start-1" aria-label="Expenditure categories">
+                <div className="mb-3">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <h3 className="text-base font-bold text-mesa-ink xl:text-lg">Adjust spending</h3>
+                    <span className="truncate text-xs font-medium text-mesa-muted">{activeFund.name}</span>
+                  </div>
+                  <p className="mt-0.5 text-xs text-mesa-muted">{FUND_HINT[activeFund.type]}</p>
+                </div>
+                <div className="space-y-4 xl:grid xl:grid-cols-2 xl:gap-5 xl:space-y-0 2xl:grid-cols-3">
+                  {expenditureCards}
+                </div>
+              </section>
+
+              {/* SUPPORTING CONTEXT — below spending on mobile, sticky left rail on desktop */}
+              <aside
+                style={{ top: headerH + 8 }}
+                className="mt-8 min-w-0 space-y-4 lg:col-start-1 lg:row-start-1 lg:mt-0 lg:space-y-5 lg:sticky lg:self-start"
+              >
+                {!readOnly && (
+                  <div className="hidden lg:block">
+                    <CityStatusRail onFinish={() => setShowSummary(true)} onResolveActive={scrollToResolver} />
+                  </div>
+                )}
+                <div>
+                  <h3 className="text-base font-bold text-mesa-ink xl:text-lg">How this fund is funded</h3>
+                  <p className="text-xs text-mesa-muted">Where revenue comes from and who controls it</p>
+                </div>
+                <RevenuePanel />
+                <LeversPanel />
+                {!readOnly && <FundCompareCard />}
+                <FundTeachingCard fund={activeFund} />
+              </aside>
+            </div>
+          </>
+        )}
+
+        {showForecast && !readOnly && (
+          <div className="mt-6 space-y-4 lg:mt-8">
+            <Suspense fallback={<div className="p-4 text-sm text-mesa-muted">Loading forecast…</div>}>
+              <ForecastChart />
+            </Suspense>
           </div>
         )}
       </main>
 
       {!readOnly && (
         <BalanceBar
-          onShare={() => setShowShare(true)}
+          onShare={() => setShowSummary(true)}
           onToggleForecast={() => setShowForecast(!showForecast)}
-          onToggleCompare={() => setShowCompare(!showCompare)}
           showForecast={showForecast}
-          showCompare={showCompare}
         />
       )}
 
@@ -370,6 +416,14 @@ export default function BudgetSimulator({ initialSnapshot, readOnly }: BudgetSim
       </AnimatePresence>
 
       {showShare && <ShareDialog onClose={() => setShowShare(false)} />}
+
+      {showSummary && (
+        <BudgetSummary
+          onClose={() => setShowSummary(false)}
+          onShare={() => { setShowSummary(false); setShowShare(true); }}
+        />
+      )}
     </div>
+    </MotionConfig>
   );
 }

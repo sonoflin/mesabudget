@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "./ui/Button";
 import { MesaScape } from "./ui/MesaScape";
 import { formatCurrency, withBase } from "../lib/utils";
-import { meta } from "../lib/budget-engine";
+import { totalAdoptedAppropriations } from "../lib/budget-engine";
 
 interface OnboardingModalProps {
   onComplete: () => void;
@@ -31,8 +31,8 @@ export function OnboardingModal({ onComplete, onReceipt, onPriorities }: Onboard
               Build Your Mesa Budget
             </h2>
             <p className="mt-2 max-w-[46ch] text-sm leading-relaxed text-white/90">
-              Balance Mesa&apos;s <strong className="font-bold">{formatCurrency(meta.totalOperatingBudget, true)}</strong> operating
-              budget — the same puzzle City Council faces each year.
+              Balance all 12 of Mesa&apos;s funds — <strong className="font-bold">{formatCurrency(totalAdoptedAppropriations, true)}</strong> in
+              spending — the same puzzle City Council faces each year.
             </p>
           </div>
         </div>

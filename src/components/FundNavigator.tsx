@@ -1,12 +1,34 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, LayoutGrid } from "lucide-react";
 import { cn, formatCurrency } from "../lib/utils";
 import { funds, FUND_TYPE_LABELS, type Fund, type FundType } from "../lib/funds-model";
 import { useBudgetStore, useBalance } from "../store/budget-store";
 import { Badge } from "./ui/Badge";
 import { MesaScape } from "./ui/MesaScape";
 import { FundPickerSheet } from "./FundPickerSheet";
+
+/** Tab that returns to the all-funds city overview. */
+function OverviewChip({ active, onSelect, fullWidth }: { active: boolean; onSelect: () => void; fullWidth?: boolean }) {
+  return (
+    <button
+      type="button"
+      role="tab"
+      aria-selected={active}
+      onClick={onSelect}
+      className={cn(
+        "inline-flex min-h-[40px] items-center gap-2 rounded-full border px-3.5 py-2 text-sm font-bold transition-all",
+        fullWidth && "w-full justify-start",
+        active
+          ? "border-transparent bg-mesa-ink text-white shadow-mesa-sm"
+          : "border-mesa-ink/12 bg-mesa-surface text-mesa-ink hover:border-mesa-blue/40 hover:bg-mesa-blue/5",
+      )}
+    >
+      <LayoutGrid className="h-4 w-4 shrink-0" aria-hidden />
+      <span className="leading-none">Overview</span>
+    </button>
+  );
+}
 
 const TYPE_BADGE: Record<FundType, "default" | "restricted" | "enterprise" | "muted"> = {
   discretionary: "default",
@@ -102,9 +124,12 @@ function FundChip({
 export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" | "vertical" }) {
   const activeFundId = useBudgetStore((s) => s.activeFundId);
   const setFund = useBudgetStore((s) => s.setFund);
+  const mainView = useBudgetStore((s) => s.mainView);
+  const setMainView = useBudgetStore((s) => s.setMainView);
   const balance = useBalance();
   const [pickerOpen, setPickerOpen] = useState(false);
 
+  const isOverview = mainView === "overview";
   const activeFund = funds.find((f) => f.id === activeFundId) ?? funds[0];
   const activeBalance = balance.fundBalances?.find((b) => b.fundId === activeFund.id);
   const activeDeficit = activeBalance?.status === "deficit";
@@ -112,13 +137,14 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
   if (orientation === "vertical") {
     return (
       <div role="tablist" aria-label="Select a fund" className="flex flex-col gap-1.5">
+        <OverviewChip active={isOverview} onSelect={() => setMainView("overview")} fullWidth />
         {funds.map((fund) => {
           const fb = balance.fundBalances?.find((b) => b.fundId === fund.id);
           return (
             <FundChip
               key={fund.id}
               fund={fund}
-              isActive={activeFundId === fund.id}
+              isActive={!isOverview && activeFundId === fund.id}
               hasDeficit={fb?.status === "deficit"}
               expenditure={fb?.totalExpenditure}
               onSelect={() => setFund(fund.id)}
@@ -132,14 +158,26 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
 
   return (
     <>
-      {/* Mobile: one tappable control → full fund list in bottom sheet */}
-      <div className="md:hidden">
+      {/* Mobile: overview toggle + one tappable control → full fund list sheet */}
+      <div className="md:hidden flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setMainView("overview")}
+          aria-pressed={isOverview}
+          aria-label="City overview — all funds"
+          className={cn(
+            "flex h-[52px] shrink-0 items-center gap-1.5 rounded-2xl border px-3 text-sm font-bold transition-colors",
+            isOverview ? "border-transparent bg-mesa-ink text-white" : "border-mesa-ink/15 bg-mesa-surface text-mesa-ink active:bg-mesa-ink/5",
+          )}
+        >
+          <LayoutGrid className="h-[18px] w-[18px]" aria-hidden />
+        </button>
         <button
           type="button"
           onClick={() => setPickerOpen(true)}
           aria-haspopup="dialog"
           aria-expanded={pickerOpen}
-          className="flex w-full items-center justify-between gap-3 rounded-2xl border border-mesa-blue/25 bg-mesa-blue/5 px-3 py-2.5 text-left min-h-[52px] transition-colors hover:bg-mesa-blue/10 active:bg-mesa-blue/15"
+          className="flex min-w-0 flex-1 items-center justify-between gap-3 rounded-2xl border border-mesa-blue/25 bg-mesa-blue/5 px-3 py-2.5 text-left min-h-[52px] transition-colors hover:bg-mesa-blue/10 active:bg-mesa-blue/15"
         >
           <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
@@ -188,13 +226,14 @@ export function FundNavigator({ orientation = "auto" }: { orientation?: "auto" |
         aria-label="Select a fund"
         className="hidden md:flex md:flex-wrap md:gap-2"
       >
+        <OverviewChip active={isOverview} onSelect={() => setMainView("overview")} />
         {funds.map((fund) => {
           const fb = balance.fundBalances?.find((b) => b.fundId === fund.id);
           return (
             <FundChip
               key={fund.id}
               fund={fund}
-              isActive={activeFundId === fund.id}
+              isActive={!isOverview && activeFundId === fund.id}
               hasDeficit={fb?.status === "deficit"}
               expenditure={fb?.totalExpenditure}
               onSelect={() => setFund(fund.id)}

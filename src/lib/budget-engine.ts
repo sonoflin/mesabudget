@@ -1,7 +1,7 @@
 import type { BudgetCategory, BudgetSnapshot, RevenueItem } from "./budget-data";
 import { categories, revenue, meta } from "./budget-data";
 import type { MultiFundSnapshot } from "./funds-model";
-import { funds, getInitialSnapshot as getMultiInitial } from "./funds-model";
+import { funds, getInitialSnapshot as getMultiInitial, totalAdoptedAppropriations } from "./funds-model";
 import { calculateAllFundBalances } from "./fund-rules-engine";
 
 export interface BalanceResult {
@@ -247,4 +247,4 @@ export function validateUtilityCap(snapshot: BudgetSnapshot): string | null {
   return null;
 }
 
-export { meta, categories, revenue };
+export { meta, categories, revenue, totalAdoptedAppropriations };
